@@ -5,10 +5,12 @@ import NewsFeed from "./Components/NewsFeed";
 import References from "./Components/References";
 import Contact from "./Components/Contact";
 import About from "./Components/About";
+import NavBar from "./Components/TopNav/NavBar";
 
 function App() {
   return (
     <div className="app">
+      <NavBar />
       <Routes>
         <Route
           path="/"
