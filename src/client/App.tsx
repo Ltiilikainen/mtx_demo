@@ -6,6 +6,7 @@ import References from "./Components/References";
 import Contact from "./Components/Contact";
 import About from "./Components/About";
 import NavBar from "./Components/TopNav/NavBar";
+import NotFound from "./Components/NotFound";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
         <Route
           path="/contact"
           element={<Contact />}
+        />
+        <Route
+          path="/*"
+          element={<NotFound />}
         />
       </Routes>
     </div>

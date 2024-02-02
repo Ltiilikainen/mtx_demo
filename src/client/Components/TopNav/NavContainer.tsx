@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useBreakpoint from "../../Hooks/useBreakpoint";
-import NavLink from "./NavLink";
+import TopLink from "./TopLink";
 import MaterialSymbolsCloseRounded from "../Icons/MaterialSymbolsCloseRounded";
 
 export default function NavContainer() {
@@ -11,23 +11,23 @@ export default function NavContainer() {
   if (isMd) {
     return (
       <div className="flex gap-4 justify-end flex-grow mr-4">
-        <NavLink
+        <TopLink
           to="/"
           text="Home"
         />
-        <NavLink
+        <TopLink
           to="/news"
           text="News"
         />
-        <NavLink
+        <TopLink
           to="/references"
           text="References"
         />
-        <NavLink
+        <TopLink
           to="/about"
           text="About"
         />
-        <NavLink
+        <TopLink
           to="/contact"
           text="Contact"
         />
@@ -51,21 +51,21 @@ export default function NavContainer() {
           <div className="flex justify-end text-black cursor-pointer">
             <MaterialSymbolsCloseRounded />
           </div>
-          <NavLink to="/">
+          <TopLink to="/">
             <h4>Home</h4>
-          </NavLink>
-          <NavLink to="/news">
+          </TopLink>
+          <TopLink to="/news">
             <h4>News</h4>
-          </NavLink>
-          <NavLink to="/references">
+          </TopLink>
+          <TopLink to="/references">
             <h4>References</h4>
-          </NavLink>
-          <NavLink to="/about">
+          </TopLink>
+          <TopLink to="/about">
             <h4>About</h4>
-          </NavLink>
-          <NavLink to="/contact">
+          </TopLink>
+          <TopLink to="/contact">
             <h4>Contact</h4>
-          </NavLink>
+          </TopLink>
         </div>
       )}
     </div>
