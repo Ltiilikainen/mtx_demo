@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import referencesServices from "../../Services/referencesServices";
+import referrersServices from "../../Services/referrersServices";
+import ReferrerThumbnail from "./ReferrerThumbnail";
 
 export default function ReferenceList({ limit }: { limit?: number }) {
   const referenceQuery = useQuery({
-    queryKey: ["references"],
+    queryKey: ["referrers"],
     queryFn: () => {
-      return referencesServices.getAllReferences();
-    },
+      return referrersServices.getAllReferrers();
+    }
   });
 
   if (referenceQuery.isLoading) {
@@ -17,5 +18,20 @@ export default function ReferenceList({ limit }: { limit?: number }) {
     return <p>Error! {referenceQuery.error.message}</p>;
   }
 
-  return <p>References have loaded!</p>;
+  return (
+    <div className="flex flex-col md:flex-row gap-2 md:gap-4 md:w-full md:justify-center">
+      {referenceQuery.data && referenceQuery.data.length > 0 ? (
+        referenceQuery.data.map((item: Referrer) => {
+          return (
+            <ReferrerThumbnail
+              key={item._id}
+              referrer={item}
+            />
+          );
+        })
+      ) : (
+        <h5>There are no references</h5>
+      )}
+    </div>
+  );
 }

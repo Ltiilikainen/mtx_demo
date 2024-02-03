@@ -19,7 +19,7 @@
 
     /* For importing .js files */
     "allowJs": true,
-    "allowSyntheticDefaultImports": false
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "postcss.config.js", "tailwind.config.js"]
 }
