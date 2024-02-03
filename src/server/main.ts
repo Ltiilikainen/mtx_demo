@@ -25,10 +25,19 @@ app.get("/api/news", async (_, res) => {
   }
 });
 
-app.get("/api/news/:id", (req, res) => {
+app.get("/api/news/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    res.status(200).send("You are receiving the news post " + id);
+    await mongoConnect();
+    const news = await newsServices.readNews({ _id: id });
+    if (news.length < 1) {
+      res.status(404).send("Could not find any news.");
+      await mongoDisconnect();
+      return;
+    } else {
+      res.status(200).send(news[0]);
+    }
+    await mongoDisconnect();
   } catch (e) {
     if (e instanceof MongoError) {
       console.log("Mongo error: " + e.message);

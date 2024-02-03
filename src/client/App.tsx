@@ -7,6 +7,7 @@ import Contact from "./Components/Contact";
 import About from "./Components/About";
 import NavBar from "./Components/TopNav/NavBar";
 import NotFound from "./Components/NotFound";
+import NewsItem from "./Components/Elements/NewsItem";
 
 function App() {
   return (
@@ -18,8 +19,12 @@ function App() {
           element={<IndexPage />}
         />
         <Route
-          path="/news"
+          path="/news/*"
           element={<NewsFeed />}
+        />
+        <Route
+          path="/news/:id"
+          element={<NewsItem />}
         />
         <Route
           path="/references"
