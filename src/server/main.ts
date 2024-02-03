@@ -1,33 +1,90 @@
 import express from "express";
 import ViteExpress from "vite-express";
+import { mongoConnect, mongoDisconnect } from "./dbServices/mongoConnect.js";
+import newsServices from "./dbServices/newsServices.js";
+import { MongoError } from "mongodb";
+import referrerServices from "./dbServices/referrerServices.js";
 
 const app = express();
 app.use(express.json());
 
-app.get("/api/news", (_, res) => {
-  res.send("You are receiving the news feed");
+app.get("/api/news", async (_, res) => {
+  try {
+    await mongoConnect();
+    const news = await newsServices.readNews();
+    await mongoDisconnect();
+    res.status(200).send(news);
+  } catch (e) {
+    if (e instanceof MongoError) {
+      console.log("Mongo error: " + e.message);
+      res.status(500).send("Internal server error");
+    } else {
+      console.log((e as Error).message);
+      res.status(500).send("Unknown error occurred");
+    }
+  }
 });
 
 app.get("/api/news/:id", (req, res) => {
-  const id = req.params.id;
-  res.send("You are receiving the news post " + id);
+  try {
+    const id = req.params.id;
+    res.status(200).send("You are receiving the news post " + id);
+  } catch (e) {
+    if (e instanceof MongoError) {
+      console.log("Mongo error: " + e.message);
+      res.status(500).send("Internal server error");
+    } else {
+      console.log((e as Error).message);
+      res.status(500).send("Unknown error occurred");
+    }
+  }
 });
 
-app.get("/api/references", (_, res) => {
-  res.send("You are receiving the references");
+app.get("/api/referrers", async (_, res) => {
+  try {
+    await mongoConnect();
+    const referrers = await referrerServices.readReferrers();
+    await mongoDisconnect();
+    res.status(200).send(referrers);
+  } catch (e) {
+    if (e instanceof MongoError) {
+      console.log("Mongo error: " + e.message);
+      res.status(500).send("Internal server error");
+    } else {
+      console.log((e as Error).message);
+      res.status(500).send("Unknown error occurred");
+    }
+  }
 });
 
 app.get("/api/references/:id", (req, res) => {
-  const id = req.params.id;
-  res.send("You are receiving the details for reference " + id);
+  try {
+    const id = req.params.id;
+    res.status(200).send("You are receiving the details for reference " + id);
+  } catch (e) {
+    if (e instanceof MongoError) {
+      console.log("Mongo error: " + e.message);
+      res.status(500).send("Internal server error");
+    } else {
+      console.log((e as Error).message);
+      res.status(500).send("Unknown error occurred");
+    }
+  }
 });
 
 app.post("/api/contact", (req, res) => {
-  const data = req.body;
-  res.send(
-    "You are trying to send a contact request email with the contents of " +
-      data
-  );
+  try {
+    const data = req.body;
+    res
+      .status(200)
+      .send(
+        "You are trying to send a contact request email with the contents of " +
+          data
+      );
+  } catch (e) {
+    console.log((e as Error).message);
+    res.status(500).send("Unknown error occurred");
+  }
 });
 
 ViteExpress.listen(app, 3001, () =>
