@@ -1,0 +1,12 @@
+[
+  {
+    "refName": "Jane Smith",
+    "affiliation": "That Awesome Company",
+    "content": "I had a great time working with this person!"
+  },
+  {
+    "refName": "John Doe",
+    "affiliation": "Example Inc.",
+    "content": "I'll definitely work with this person again.'"
+  }
+]

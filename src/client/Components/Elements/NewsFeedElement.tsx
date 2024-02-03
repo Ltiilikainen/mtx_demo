@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import newsFeedServices from "../../Services/newsFeedServices";
+import NewsThumbnail from "./NewsThumbnail";
 
 export default function NewsFeedElement({ limit }: { limit?: number }) {
   const newsFeedQuery = useQuery({
     queryKey: ["news"],
     queryFn: () => {
       return newsFeedServices.getAllNews();
-    },
+    }
   });
 
   if (newsFeedQuery.isLoading) {
@@ -17,5 +18,20 @@ export default function NewsFeedElement({ limit }: { limit?: number }) {
     return <p>Error! {newsFeedQuery.error.message}</p>;
   }
 
-  return <p>News has loaded!</p>;
+  return (
+    <div className="flex flex-col gap-2">
+      {newsFeedQuery.data && newsFeedQuery.data.length > 0 ? (
+        newsFeedQuery.data.map((item: News) => {
+          return (
+            <NewsThumbnail
+              key={item._id}
+              newsItem={item}
+            />
+          );
+        })
+      ) : (
+        <h5>There are no news posts</h5>
+      )}
+    </div>
+  );
 }
