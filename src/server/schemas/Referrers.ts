@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Collection, Schema } from "mongoose";
 import Uploads from "./Uploads.js";
 
 const ReferrerSchema = new mongoose.Schema(
@@ -21,6 +21,7 @@ const ReferrerSchema = new mongoose.Schema(
     }
   },
   {
+    collection: "Referrers",
     query: {
       populatePaths() {
         return this.populate("image").exec();

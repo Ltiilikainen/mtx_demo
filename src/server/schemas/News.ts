@@ -16,7 +16,7 @@ const NewsSchema = new mongoose.Schema(
       ref: Uploads
     }
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { createdAt: "created_at" }, collection: "News" }
 );
 
 export default mongoose.model("News", NewsSchema);

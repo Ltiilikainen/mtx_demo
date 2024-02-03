@@ -6,6 +6,7 @@ const UploadSchema = new mongoose.Schema(
     path: { type: String, required: true }
   },
   {
+    collection: "Uploads",
     query: {
       selectImages() {
         return this.where({ type: "image" });

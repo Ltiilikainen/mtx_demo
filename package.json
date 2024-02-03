@@ -1,7 +1,8 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "mtx-site-demo",
   "private": true,
   "version": "0.0.0",
+  "description": "Demo version of the MTX Audio website",
   "type": "module",
   "scripts": {
     "dev": "nodemon -w src/server -x tsx src/server/main.ts",
@@ -9,6 +10,19 @@
     "seed": "node --loader ts-node/esm ./src/db/seed/mongo-seed.ts",
     "build": "vite build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ltiilikainen/mtx_demo.git"
+  },
+  "keywords": [
+    "mtx-audio, demo-site"
+  ],
+  "author": "Laura Tiilikainen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ltiilikainen/mtx_demo/issues"
+  },
+  "homepage": "https://github.com/Ltiilikainen/mtx_demo",
   "dependencies": {
     "@tanstack/react-query": "^5.18.0",
     "@tanstack/react-query-devtools": "^5.18.0",
