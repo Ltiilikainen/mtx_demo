@@ -3,8 +3,8 @@ import ReferenceList from "./Elements/ReferenceList";
 
 export default function IndexPage() {
   return (
-    <div className="mx-4 mt-2">
-      <h1>This is the index page</h1>
+    <div className="px-4 pt-2">
+      <h1>Home</h1>
 
       <ReferenceList limit={3} />
 

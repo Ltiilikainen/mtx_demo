@@ -5,7 +5,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-4 mt-2 text-center">
+    <div className="px-4 pt-2 text-center">
       <h1>There's no content here.</h1>
 
       <Button

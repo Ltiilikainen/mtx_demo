@@ -14,40 +14,45 @@ function App() {
   return (
     <div className="app">
       <NavBar />
-      <Routes>
-        <Route
-          path="/"
-          element={<IndexPage />}
-        />
-        <Route
-          path="/news/*"
-          element={<NewsFeed />}
-        />
-        <Route
-          path="/news/:id"
-          element={<NewsItem />}
-        />
-        <Route
-          path="/references"
-          element={<References />}
-        />
-        <Route
-          path="/about"
-          element={<About />}
-        />
-        <Route
-          path="/contact"
-          element={<Contact />}
-        />
-        <Route
-          path="/adminhub"
-          element={<EditPage />}
-        />
-        <Route
-          path="/*"
-          element={<NotFound />}
-        />
-      </Routes>
+      <div
+        id="main"
+        className="h-[91%] w-full overflow-y-auto "
+      >
+        <Routes>
+          <Route
+            path="/"
+            element={<IndexPage />}
+          />
+          <Route
+            path="/news/*"
+            element={<NewsFeed />}
+          />
+          <Route
+            path="/news/:id"
+            element={<NewsItem />}
+          />
+          <Route
+            path="/references"
+            element={<References />}
+          />
+          <Route
+            path="/about"
+            element={<About />}
+          />
+          <Route
+            path="/contact"
+            element={<Contact />}
+          />
+          <Route
+            path="/adminhub"
+            element={<EditPage />}
+          />
+          <Route
+            path="/*"
+            element={<NotFound />}
+          />
+        </Routes>
+      </div>
     </div>
   );
 }
