@@ -10,4 +10,8 @@ const getNewsById = (id: string) => {
   return axios.get(`${baseURL}/news/${id}`).then((res) => res.data);
 };
 
-export default { getAllNews, getNewsById };
+const postNews = (newsItem: NewsInput) => {
+  return axios.post(`${baseURL}/news`, { newsItem }).then((res) => res.data);
+};
+
+export default { getAllNews, getNewsById, postNews };

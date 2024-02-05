@@ -6,14 +6,19 @@ type NewsThumbProps = {
 };
 
 export default function NewsThumbnail({ newsItem }: NewsThumbProps) {
-  const navigate = useNavigate();
   const sanitised = DOMPurify.sanitize(newsItem.body);
   return (
     <div
       id={newsItem._id}
       className="flex flex-col gap-2 rounded-sm border-[1px] border-slate-200 p-4"
-      onClick={() => navigate(`/news/${newsItem._id}`)}
     >
+      {newsItem.created_at && (
+        <time className="self-end text-slate-500">
+          <small>
+            {new Date(Date.parse(newsItem.created_at)).toLocaleString()}
+          </small>
+        </time>
+      )}
       <h5>{newsItem.title}</h5>
       <div
         className="news-preview"

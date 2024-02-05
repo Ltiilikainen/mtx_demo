@@ -14,7 +14,7 @@ export default function NewsItem() {
 
   if (!id || newsItem.isError) {
     return (
-      <div className="w-full flex flex-col m-4">
+      <div className="w-full flex flex-col my-4">
         <h5>Error loading post</h5>
       </div>
     );
@@ -25,12 +25,16 @@ export default function NewsItem() {
     </div>;
   } else {
     return (
-      <div className="w-full flex flex-col gap-4 m-4 md:w-[70%] md:mx-auto md:my-4">
+      <div className="w-full flex flex-col gap-4 p-4 md:w-[70%] md:mx-auto md:my-4">
         <div className="flex flex-row justify-between border-b-[1px] border-slate-200">
           <h3>{newsItem.data.title}</h3>
           {newsItem.data.created_at && (
             <time>
-              <small>{newsItem.data.created_at}</small>
+              <small>
+                {new Date(
+                  Date.parse(newsItem.data.created_at)
+                ).toLocaleString()}
+              </small>
             </time>
           )}
         </div>

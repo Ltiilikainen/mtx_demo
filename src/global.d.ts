@@ -11,8 +11,8 @@ interface NewsInput {
 
 interface News extends NewsInput {
   _id: Schema.Types.ObjectId | string;
-  created_at?: Date | string;
-  updated_at?: Date | string;
+  created_at: string;
+  updatedAt: string;
 }
 
 interface ReferrerBase {
