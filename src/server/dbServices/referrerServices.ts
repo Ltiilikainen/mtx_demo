@@ -18,4 +18,29 @@ function readReferrers(query?: { [key: string]: unknown }) {
   else return Referrers.find();
 }
 
-export default { readReferrers };
+async function addReferrer(referrer: ReferrerInput) {
+  return Referrers.create(referrer);
+}
+
+async function updateReferrer(id: string, info: { [key: string]: string }) {
+  const test = await Referrers.find({ _id: id });
+  if (test.length < 1) {
+    throw new Error("Referrer could not be found");
+  }
+  return Referrers.findOneAndUpdate({ _id: id }, info);
+}
+
+async function deleteReferrer(id: string) {
+  const test = await Referrers.find({ _id: id });
+  if (test.length < 1) {
+    throw new Error("Referrer could not be found");
+  }
+  return Referrers.findOneAndDelete({ _id: id });
+}
+
+export default {
+  readReferrers,
+  addReferrer,
+  updateReferrer,
+  deleteReferrer
+};
