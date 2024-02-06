@@ -1,10 +1,21 @@
 [
   {
     "title": "Hello",
-    "body": "<p>This is my first news post</p>"
+    "body": "<p>This is my first news post</p>",
+    "created_at": "2024-02-01T14:02:02.091Z",
+    "updatedAt": "2024-02-01T14:02:02.091Z"
   },
   {
     "title": "Lorem ipsum",
-    "body": "<p>Qui tempor irure enim est elit.</p> <p>Irure consectetur id consequat mollit cupidatat. Non deserunt aliquip cillum et cillum. Velit reprehenderit culpa qui laborum nostrud laboris sunt dolor nostrud aliquip eiusmod.</p> <p>Voluptate qui do reprehenderit velit mollit quis. Laborum dolore sit aliqua laboris tempor veniam culpa dolor dolor. Magna adipisicing exercitation nisi in laboris excepteur amet id deserunt consequat nostrud laboris dolor.</p>"
+    "body": "<p>Qui tempor irure enim est elit.</p> <p>Irure consectetur id consequat mollit cupidatat. Non deserunt aliquip cillum et cillum. Velit reprehenderit culpa qui laborum nostrud laboris sunt dolor nostrud aliquip eiusmod.</p> <p>Voluptate qui do reprehenderit velit mollit quis. Laborum dolore sit aliqua laboris tempor veniam culpa dolor dolor. Magna adipisicing exercitation nisi in laboris excepteur amet id deserunt consequat nostrud laboris dolor.</p>",
+    "created_at": "2024-02-02T18:00:32.091Z",
+    "updatedAt": "2024-02-02T18:00:32.091Z"
+  },
+
+  {
+    "title": "Lorem ipsum",
+    "body": "<p>Labore Lorem quis aliqua nisi aute cupidatat et est. Lorem eu eu minim ex in aute exercitation.</p> <p>Sit aliqua veniam deserunt aliqua elit magna duis consectetur ipsum tempor qui ut aliqua qui. Ullamco in exercitation nostrud sint quis tempor tempor non commodo consequat.</p>",
+    "created_at": "2024-02-04T22:13:05.091Z",
+    "updatedAt": "2024-02-04T22:13:05.091Z"
   }
 ]

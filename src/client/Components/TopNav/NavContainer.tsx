@@ -37,15 +37,17 @@ export default function NavContainer() {
 
   return (
     <div className="flex-grow ">
-      <div
-        className="flex justify-end mr-4 cursor-pointer"
-        onClick={() => setShowNav(true)}
-      >
-        <p>Menu</p>
+      <div className="flex justify-end">
+        <p
+          className="px-4  cursor-pointer"
+          onClick={() => setShowNav(true)}
+        >
+          Menu
+        </p>
       </div>
       {showNav && (
         <div
-          className="w-full h-full absolute top-0 left-0 flex flex-col gap-2 p-2 bg-white"
+          className="w-full h-full absolute top-0 left-0 flex flex-col gap-2 p-2 bg-white z-[99]"
           onClick={() => setShowNav(false)}
         >
           <div className="flex justify-end text-black cursor-pointer">

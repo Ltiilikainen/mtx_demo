@@ -40,3 +40,10 @@
     @apply text-sm;
   }
 }
+
+@layer components {
+  .news-preview {
+    @apply line-clamp-3;
+    font-size: medium !important;
+  }
+}

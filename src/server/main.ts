@@ -1,76 +1,16 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import { mongoConnect, mongoDisconnect } from "./dbServices/mongoConnect.js";
-import newsServices from "./dbServices/newsServices.js";
-import { MongoError } from "mongodb";
-import referrerServices from "./dbServices/referrerServices.js";
+
+import newsRouter from "./routes/newsRouter.js";
+import referrersRouter from "./routes/referrersRouter.js";
+import uploadsRouter from "./routes/uploadsRouter.js";
 
 const app = express();
 app.use(express.json());
 
-app.get("/api/news", async (_, res) => {
-  try {
-    await mongoConnect();
-    const news = await newsServices.readNews();
-    await mongoDisconnect();
-    res.status(200).send(news);
-  } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
-  }
-});
-
-app.get("/api/news/:id", (req, res) => {
-  try {
-    const id = req.params.id;
-    res.status(200).send("You are receiving the news post " + id);
-  } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
-  }
-});
-
-app.get("/api/referrers", async (_, res) => {
-  try {
-    await mongoConnect();
-    const referrers = await referrerServices.readReferrers();
-    await mongoDisconnect();
-    res.status(200).send(referrers);
-  } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
-  }
-});
-
-app.get("/api/references/:id", (req, res) => {
-  try {
-    const id = req.params.id;
-    res.status(200).send("You are receiving the details for reference " + id);
-  } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
-  }
-});
+app.use("/api/news", newsRouter);
+app.use("/api/referrers", referrersRouter);
+app.use("/api/uploads", uploadsRouter);
 
 app.post("/api/contact", (req, res) => {
   try {
