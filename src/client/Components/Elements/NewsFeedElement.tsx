@@ -19,7 +19,7 @@ export default function NewsFeedElement({ limit }: { limit?: number }) {
   }
 
   return (
-    <div className="flex flex-col px-4 gap-4">
+    <div className="flex flex-col px-4 gap-4 w-[80%] md:w-[70%] mx-auto">
       {newsFeedQuery.data && newsFeedQuery.data.length > 0 ? (
         newsFeedQuery.data.map((item: News) => {
           return (

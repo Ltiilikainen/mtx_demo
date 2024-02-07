@@ -14,4 +14,12 @@ const postNews = (newsItem: NewsInput) => {
   return axios.post(`${baseURL}/news`, { newsItem }).then((res) => res.data);
 };
 
-export default { getAllNews, getNewsById, postNews };
+const updateNews = (id: string, info: NewsInput) => {
+  return axios.put(`${baseURL}/news/${id}`, { info }).then((res) => res.data);
+};
+
+const deleteNews = (id: string) => {
+  return axios.delete(`${baseURL}/news/${id}`).then((res) => res.data);
+};
+
+export default { getAllNews, getNewsById, postNews, updateNews, deleteNews };
