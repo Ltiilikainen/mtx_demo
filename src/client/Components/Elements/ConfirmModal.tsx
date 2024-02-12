@@ -1,30 +1,30 @@
 import Button from "./Button";
 
 type ConfirmModalProps = {
-  refObject: React.MutableRefObject<HTMLDialogElement>;
+  refObject: React.MutableRefObject<HTMLDialogElement | null>;
   text: string;
-  onCancel?: () => void;
-  onConfirm: () => void;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  confirmCallback: (parameter?: unknown) => void;
 };
 
 export default function ConfirmModal({
   refObject,
   text,
-  onCancel,
-  onConfirm
+  setIsOpen,
+  confirmCallback
 }: ConfirmModalProps) {
   return (
     <dialog
       ref={refObject}
-      className="flex flex-col gap-4 p-4"
+      className="flex flex-col gap-4 p-4 rounded-sm border-slate-500 backdrop:bg-[#000] backdrop:opacity-50 border-[1px]"
     >
       <h5>{text}</h5>
       <div className="flex flex-row justify-between gap-2">
         <Button
-          className="bg-slate-600 text-white px-5"
+          className="border-slate-600 border-[1px] px-5"
           onClick={() => {
-            onCancel && onCancel();
-            refObject.current.close();
+            refObject.current?.close();
+            setIsOpen && setIsOpen(false);
           }}
         >
           Cancel
@@ -32,8 +32,9 @@ export default function ConfirmModal({
         <Button
           className="bg-slate-600 text-white px-5"
           onClick={() => {
-            onConfirm();
-            refObject.current.close();
+            confirmCallback();
+            refObject.current?.close();
+            setIsOpen && setIsOpen(false);
           }}
         >
           Confirm

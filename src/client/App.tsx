@@ -8,7 +8,7 @@ import About from "./Components/About";
 import NavBar from "./Components/TopNav/NavBar";
 import NotFound from "./Components/NotFound";
 import NewsItem from "./Components/Elements/NewsItem";
-import EditPage from "./Components/EditPage";
+import AdminHub from "./Components/AdminHub";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <NavBar />
       <div
         id="main"
-        className="h-[91%] w-full overflow-y-auto "
+        className="h-[94%] w-full overflow-y-auto"
       >
         <Routes>
           <Route
@@ -44,8 +44,8 @@ function App() {
             element={<Contact />}
           />
           <Route
-            path="/adminhub"
-            element={<EditPage />}
+            path="/adminhub/*"
+            element={<AdminHub />}
           />
           <Route
             path="/*"
