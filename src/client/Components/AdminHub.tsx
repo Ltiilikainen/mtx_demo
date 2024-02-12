@@ -2,11 +2,13 @@ import { Link, Navigate, Route, Routes } from "react-router-dom";
 import NewsPostForm from "./Elements/NewsPostForm";
 import AdminHubNewsAddEdit from "./Elements/AdminHubNewsAddEdit";
 import AdminNewsList from "./Elements/AdminNewsList";
+import AdminHubReferrerAddEdit from "./Elements/AdminHubReferrerAddEdit";
+import AdminRefList from "./Elements/AdminRefList";
 
 export default function AdminHub() {
   return (
-    <div className="flex">
-      <div className="flex flex-col border-r-[1px] border-r-slate-200 min-w-[30%]">
+    <div className="flex h-full">
+      <div className="flex flex-col border-r-[1px] border-r-slate-200 min-w-[30%] h-full">
         <Link
           className="p-4 border-b-[1px] border-b-slate-200"
           to={"news/add"}
@@ -21,13 +23,13 @@ export default function AdminHub() {
         </Link>
         <Link
           className="p-4 border-b-[1px] border-b-slate-200"
-          to={"/"}
+          to={"referrer/"}
         >
           Add reference
         </Link>
         <Link
           className="p-4 border-b-[1px] border-b-slate-200"
-          to={"/"}
+          to={"referrers/"}
         >
           Manage references
         </Link>
@@ -49,15 +51,28 @@ export default function AdminHub() {
             element={<AdminHubNewsAddEdit />}
           />
           <Route
-            index
             path="news/:id"
             element={<AdminHubNewsAddEdit />}
           />
 
           <Route
-            index
             path="news/"
             element={<AdminNewsList />}
+          />
+
+          <Route
+            path="referrer/"
+            element={<AdminHubReferrerAddEdit />}
+          />
+
+          <Route
+            path="referrer/:id"
+            element={<AdminHubReferrerAddEdit />}
+          />
+
+          <Route
+            path="referrers/"
+            element={<AdminRefList />}
           />
         </Routes>
       </div>
