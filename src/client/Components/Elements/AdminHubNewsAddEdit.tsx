@@ -28,7 +28,9 @@ export default function AdminHubNewsAddEdit() {
     if (getNewsQuery.isLoading)
       return (
         <div className="flex flex-col gap-4 my-6 mx-auto">
-          <p className="text-center">Loading post information</p>
+          <p className="text-center animate-pulse text-slate-500">
+            Loading post information
+          </p>
         </div>
       );
 
