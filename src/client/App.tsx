@@ -16,7 +16,7 @@ function App() {
       <NavBar />
       <div
         id="main"
-        className="h-[91%] w-full overflow-y-auto "
+        className="h-[94%] w-full overflow-y-auto"
       >
         <Routes>
           <Route
