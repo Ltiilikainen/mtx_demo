@@ -6,7 +6,14 @@ export default function ReferrerThumbnail({ referrer }: ReferrerThumbProps) {
   return (
     <div className="relative w-60 h-40 my-2">
       <div className="flex  w-full justify-center">
-        <div className="w-20 h-20 bg-slate-300 rounded-full"></div>
+        <div className="w-20 h-20 bg-slate-300 rounded-full overflow-hidden">
+          {referrer.image && (
+            <img
+              src={referrer.image}
+              className="object-cover"
+            />
+          )}
+        </div>
       </div>
       <div className="absolute top-14 w-full text-center">
         <h5>{referrer.refName}</h5>
