@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import TextInput from "./TextInput.js";
@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { queryClient } from "../../main.js";
 import newsFeedServices from "../../Services/newsFeedServices.js";
+import uploadServices from "../../Services/uploadServices.js";
 
 type NewsPostFormProps = {
   id?: string;
@@ -23,6 +24,10 @@ export default function NewsPostForm({
   const [blogTitle, setBlogTitle] = useState(defaultTitle || "");
   const [blogBody, setBlogBody] = useState(defaultBody || "");
 
+  const navigate = useNavigate();
+
+  const quillRef = useRef<ReactQuill>(null);
+
   const addNewsMutation = useMutation({
     mutationKey: ["newsAdd"],
     mutationFn: () => {
@@ -36,6 +41,31 @@ export default function NewsPostForm({
       navigate(`/news/${data._id}`);
     }
   });
+
+  function imageHandler() {
+    const editor = quillRef.current!.getEditor();
+    const input = document.createElement("input");
+
+    input.setAttribute("type", "file");
+    input.setAttribute("name", "img");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = async () => {
+      if (input.files) {
+        const file = input.files[0];
+        const formData = new FormData();
+
+        formData.append("img", file);
+
+        const range = editor.getSelection(true);
+
+        const upload = await uploadServices.addUpload(formData, "image");
+
+        editor.insertEmbed(range.index, "image", (upload as Upload).path);
+      }
+    };
+  }
 
   const editNewsMutation = useMutation({
     mutationKey: ["newsEdit", id],
@@ -59,22 +89,25 @@ export default function NewsPostForm({
     }
   });
 
-  const navigate = useNavigate();
-
-  const quillRef = useRef<ReactQuill>(null);
-
   const [blogPreview, setBlogPreview] = useState(false);
 
-  const modules = {
-    toolbar: [
-      [{ header: [3, 4, 5, false] }],
-      [{ size: [] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"]
-    ]
-  };
-
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [3, 4, 5, false] }],
+          [{ size: [] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["link", "image"]
+        ],
+        handlers: {
+          image: imageHandler
+        }
+      }
+    }),
+    []
+  );
   return (
     <div className="w-full py-4 px-8 h-[80%] md:w-[75%] mx-auto">
       {quillRef.current && blogPreview ? (
