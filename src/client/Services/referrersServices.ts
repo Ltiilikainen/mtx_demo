@@ -18,7 +18,7 @@ const addReferrer = (newRef: ReferrerInput) => {
 
 const updateReferrer = (id: string, info: ReferrerInput) => {
   return axios
-    .put(`${baseURL}/referrers/${id}`, { info })
+    .put(`${baseURL}/referrers/${id}`, { updatedInfo: info })
     .then((res) => res.data);
 };
 
