@@ -97,7 +97,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/api/referrers/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
   try {
