@@ -6,6 +6,7 @@ import referrersServices from "../../Services/referrersServices";
 import { useNavigate } from "react-router";
 import Button from "./Button";
 import ReferrerThumbnail from "./ReferrerThumbnail";
+import uploadServices from "../../Services/uploadServices";
 
 type RefFormProps = {
   id?: string;
@@ -19,12 +20,26 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
     referrer?.affiliation || ""
   );
   const [refContent, setRefContent] = useState(referrer?.content || "");
-  const [previewImgPath, setPreviewImgPath] = useState(referrer?.image || "");
+  const [previewImgPath, setPreviewImgPath] = useState(
+    referrer?.image?.path || ""
+  );
   const [refPreview, setRefPreview] = useState(false);
 
   const addRefMutation = useMutation({
     mutationKey: ["refAdd"],
-    mutationFn: () => {
+    mutationFn: async () => {
+      if (refImage) {
+        const formData = new FormData();
+        formData.append("img", refImage);
+        const upload = await uploadServices.addUpload(formData, "image");
+
+        return referrersServices.addReferrer({
+          refName,
+          affiliation: refAffiliation,
+          content: refContent,
+          image: (upload as Upload)._id
+        });
+      }
       return referrersServices.addReferrer({
         refName,
         affiliation: refAffiliation,
@@ -33,20 +48,48 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["referrers"] });
-      navigate(`/referrers`);
+      navigate(`/references`);
     }
   });
 
   const editRefMutation = useMutation({
     mutationKey: ["refEdit", id],
-    mutationFn: () => {
+    mutationFn: async () => {
       if (
         refName === "" &&
         refAffiliation === "" &&
         refContent === "" &&
         refImage === null
       )
-        throw new Error("Name, affiliation and Content cannot all be empty");
+        throw new Error(
+          "Name, affiliation and Content and Image cannot all be empty"
+        );
+      if (refImage) {
+        const formData = new FormData();
+        formData.append("img", refImage);
+        const upload = await uploadServices.addUpload(formData, "image");
+
+        referrer!.image &&
+          (await uploadServices.deleteUpload(referrer?.image._id));
+
+        const infoObject = {
+          refName: refName,
+          affiliation: refAffiliation,
+          content: refContent,
+          image: (upload as Upload)._id
+        };
+        if (infoObject.refName === "")
+          Object.entries(infoObject).filter(([key]) => key != "refName");
+        if (infoObject.affiliation === "")
+          Object.entries(infoObject).filter(([key]) => key != "affiliation");
+        if (infoObject.content === "")
+          Object.entries(infoObject).filter(([key]) => key != "content");
+
+        /**
+         * Edit mutation is only called if the id exists so the id can be asserted as "not undefined"
+         */
+        return referrersServices.updateReferrer(id!, infoObject);
+      }
       const infoObject = {
         refName: refName,
         affiliation: refAffiliation,
@@ -110,6 +153,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
             </label>
             <input
               id="refImage"
+              name="img"
               type="file"
               className="h-0 w-0 hidden"
               onChange={(e) => {
