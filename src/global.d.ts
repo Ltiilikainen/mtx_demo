@@ -31,7 +31,7 @@ interface Referrer extends ReferrerBase {
 }
 
 interface UploadInput {
-  type: ["image", "audio", "video"];
+  type: "image" | "audio" | "video";
   path: string;
 }
 

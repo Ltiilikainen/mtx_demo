@@ -14,8 +14,8 @@ function readReferrers(query?: { [key: string]: unknown }) {
         }
       }
     ]);
-  if (query) return Referrers.find(query);
-  else return Referrers.find();
+  if (query) return Referrers.find(query).populatePaths();
+  else return Referrers.find().populatePaths();
 }
 
 async function addReferrer(referrer: ReferrerInput) {

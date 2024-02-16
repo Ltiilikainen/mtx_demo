@@ -9,14 +9,14 @@ export default function ReferrerThumbnail({ referrer }: ReferrerThumbProps) {
         <div className="w-20 h-20 bg-slate-300 rounded-full overflow-hidden">
           {referrer.image && (
             <img
-              src={referrer.image}
+              src={referrer.image.path}
               className="object-cover"
             />
           )}
         </div>
       </div>
-      <div className="absolute top-14 w-full text-center">
-        <h5>{referrer.refName}</h5>
+      <div className="absolute top-16 w-full text-center">
+        <h5 className="text-shadow-white font-semibold">{referrer.refName}</h5>
         <p>{referrer.affiliation}</p>
         <div className="text-center mx-auto bg-slate-300 border-[1px] border-slate-800 rounded-xl w-60">
           <p>

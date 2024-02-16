@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
     await mongoConnect();
     const referrers = await referrerServices.readReferrers({ _id: id });
     await mongoDisconnect();
-    res.status(200).send(referrers[0]);
+    res.status(200).send((referrers as Referrer[])[0]);
   } catch (e) {
     if (e instanceof MongoError) {
       console.log("Mongo error: " + e.message);
