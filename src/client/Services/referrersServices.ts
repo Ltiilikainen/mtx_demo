@@ -11,7 +11,9 @@ const getReferrerById = (id: string) => {
 };
 
 const addReferrer = (newRef: ReferrerInput) => {
-  return axios.post(`${baseURL}/referrers`, { newRef }).then((res) => res.data);
+  return axios
+    .post(`${baseURL}/referrers`, { referrer: newRef })
+    .then((res) => res.data);
 };
 
 const updateReferrer = (id: string, info: ReferrerInput) => {
