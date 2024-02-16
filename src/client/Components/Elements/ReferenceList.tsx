@@ -19,7 +19,7 @@ export default function ReferenceList({ limit }: { limit?: number }) {
   }
 
   return (
-    <div className="flex flex-col mx-auto w-max md:flex-row gap-2 md:gap-4 md:w-full md:justify-center">
+    <div className="flex flex-col h-max py-2 mx-auto w-max md:flex-row gap-2 md:gap-4 md:w-full md:justify-center my-2">
       {referenceQuery.data && referenceQuery.data.length > 0 ? (
         referenceQuery.data.map((item: Referrer) => {
           return (
