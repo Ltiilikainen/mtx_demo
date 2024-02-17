@@ -33,6 +33,7 @@ export default function AdminMediaThumb({ media }: { media: Upload }) {
           <MaterialSymbolsDeleteRounded />
         </div>
         <img
+          className="cursor-pointer"
           src={media.path}
           style={{ minHeight: "100%", minWidth: "100%", objectFit: "cover" }}
           onClick={() => displayDialog.current?.showModal()}
