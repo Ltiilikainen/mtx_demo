@@ -106,7 +106,7 @@ router.delete("/:id", async (req, res) => {
   try {
     await mongoConnect();
     const upload = await uploadsServices.deleteUpload(id);
-    await mongoDisconnect();
+
     if (!upload) throw new Error("Unable to delete upload");
     try {
       //if /:id?cascade=true, go through referrers and set any images with the deleted upload's ID to empty string
@@ -120,7 +120,7 @@ router.delete("/:id", async (req, res) => {
             await referrerServices.updateReferrer(ref._id, { image: "" })
         );
       }
-
+      await mongoDisconnect();
       fs.unlink(`.${upload.path}`, () => {
         res.status(200).send(upload);
       });
