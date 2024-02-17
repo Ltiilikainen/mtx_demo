@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import referrersServices from "../../Services/referrersServices";
+import referrersServices from "../../../Services/referrersServices";
 import AdminRefThumb from "./AdminRefThumb";
 
 export default function AdminRefList() {

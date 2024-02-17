@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import referrerServices from "../../../server/dbServices/referrerServices";
 import ReferrerForm from "./ReferrerForm";
-import referrersServices from "../../Services/referrersServices";
+import referrersServices from "../../../Services/referrersServices";
 
 export default function AdminHubReferrerAddEdit() {
   const id = useParams().id;

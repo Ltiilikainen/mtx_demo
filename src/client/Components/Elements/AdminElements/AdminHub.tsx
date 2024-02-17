@@ -1,9 +1,9 @@
 import { Link, Navigate, Route, Routes } from "react-router-dom";
-import NewsPostForm from "./Elements/NewsPostForm";
-import AdminHubNewsAddEdit from "./Elements/AdminHubNewsAddEdit";
-import AdminNewsList from "./Elements/AdminNewsList";
-import AdminHubReferrerAddEdit from "./Elements/AdminHubReferrerAddEdit";
-import AdminRefList from "./Elements/AdminRefList";
+import AdminHubNewsAddEdit from "./AdminHubNewsAddEdit";
+import AdminNewsList from "./AdminNewsList";
+import AdminHubReferrerAddEdit from "./AdminHubReferrerAddEdit";
+import AdminRefList from "./AdminRefList";
+import AdminMediaHub from "./AdminMediaHub";
 
 export default function AdminHub() {
   return (
@@ -32,6 +32,13 @@ export default function AdminHub() {
           to={"referrers/"}
         >
           Manage references
+        </Link>
+
+        <Link
+          className="p-4 border-b-[1px] border-b-slate-200"
+          to={"media/"}
+        >
+          Manage media
         </Link>
       </div>
       <div className="h-full flex-grow overflow-y-auto my-6 mx-auto">
@@ -73,6 +80,11 @@ export default function AdminHub() {
           <Route
             path="referrers/"
             element={<AdminRefList />}
+          />
+
+          <Route
+            path="media/"
+            element={<AdminMediaHub />}
           />
         </Routes>
       </div>

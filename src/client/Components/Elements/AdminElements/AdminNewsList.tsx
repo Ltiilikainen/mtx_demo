@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import newsFeedServices from "../../Services/newsFeedServices";
+import newsFeedServices from "../../../Services/newsFeedServices";
 import AdminNewsThumb from "./AdminNewsThumb";
 
 export default function AdminNewsList() {
