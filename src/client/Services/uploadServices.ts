@@ -2,6 +2,10 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3001/api";
 
+const getUploads = () => {
+  return axios.get(`${baseURL}/uploads`).then((res) => res.data);
+};
+
 const addUpload = (formData: FormData, filetype: string) => {
   return axios
     .post(`${baseURL}/uploads?filetype=${filetype}`, formData, {
@@ -16,4 +20,4 @@ const deleteUpload = (uploadId: string, cascade?: boolean) => {
     .then((res) => res.data);
 };
 
-export default { addUpload, deleteUpload };
+export default { getUploads, addUpload, deleteUpload };
