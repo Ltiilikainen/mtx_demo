@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import newsFeedServices from "../../Services/newsFeedServices.js";
+import newsFeedServices from "../../../Services/newsFeedServices.js";
 import NewsPostForm from "./NewsPostForm.js";
 
 export default function AdminHubNewsAddEdit() {

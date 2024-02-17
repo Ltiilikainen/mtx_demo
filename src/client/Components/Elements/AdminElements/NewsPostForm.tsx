@@ -1,14 +1,13 @@
 import { useMemo, useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import TextInput from "./TextInput.js";
+import TextInput from "../TextInput.js";
 import DOMPurify from "dompurify";
-import Button from "./Button.js";
-import { useMutation } from "@tanstack/react-query";
+import Button from "../Button.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { queryClient } from "../../main.js";
-import newsFeedServices from "../../Services/newsFeedServices.js";
-import uploadServices from "../../Services/uploadServices.js";
+import newsFeedServices from "../../../Services/newsFeedServices.js";
+import uploadServices from "../../../Services/uploadServices.js";
 
 type NewsPostFormProps = {
   id?: string;
@@ -23,6 +22,8 @@ export default function NewsPostForm({
 }: NewsPostFormProps) {
   const [blogTitle, setBlogTitle] = useState(defaultTitle || "");
   const [blogBody, setBlogBody] = useState(defaultBody || "");
+
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 

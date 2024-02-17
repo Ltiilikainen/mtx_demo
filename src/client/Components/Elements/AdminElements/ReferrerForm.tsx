@@ -1,12 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import TextInput from "./TextInput";
-import { queryClient } from "../../main";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import TextInput from "../TextInput";
 import { useState } from "react";
-import referrersServices from "../../Services/referrersServices";
+import referrersServices from "../../../Services/referrersServices";
 import { useNavigate } from "react-router";
-import Button from "./Button";
-import ReferrerThumbnail from "./ReferrerThumbnail";
-import uploadServices from "../../Services/uploadServices";
+import Button from "../Button";
+import ReferrerThumbnail from "../ReferrerThumbnail";
+import uploadServices from "../../../Services/uploadServices";
 
 type RefFormProps = {
   id?: string;
@@ -24,6 +23,8 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
     referrer?.image?.path || ""
   );
   const [refPreview, setRefPreview] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const addRefMutation = useMutation({
     mutationKey: ["refAdd"],

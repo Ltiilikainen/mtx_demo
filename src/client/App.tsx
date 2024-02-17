@@ -8,7 +8,7 @@ import About from "./Components/About";
 import NavBar from "./Components/TopNav/NavBar";
 import NotFound from "./Components/NotFound";
 import NewsItem from "./Components/Elements/NewsItem";
-import AdminHub from "./Components/AdminHub";
+import AdminHub from "./Components/Elements/AdminElements/AdminHub";
 
 function App() {
   return (

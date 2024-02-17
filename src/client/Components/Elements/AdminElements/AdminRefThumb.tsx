@@ -1,17 +1,16 @@
-import ReferrerThumbnail from "./ReferrerThumbnail";
-import Button from "./Button";
-import ConfirmModal from "./ConfirmModal";
+import ReferrerThumbnail from "../ReferrerThumbnail";
+import Button from "../Button";
+import ConfirmModal from "../ConfirmModal";
 import { useNavigate } from "react-router";
 import { useRef, useState } from "react";
-import { queryClient } from "../../main";
-import { useMutation } from "@tanstack/react-query";
-import newsFeedServices from "../../Services/newsFeedServices";
-import referrersServices from "../../Services/referrersServices";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import referrersServices from "../../../Services/referrersServices";
 
 export default function AdminRefThumb({ item }: { item: Referrer }) {
   const navigate = useNavigate();
   const confirmModal = useRef<HTMLDialogElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
     mutationKey: ["deleteRefs", item._id],
@@ -36,7 +35,6 @@ export default function AdminRefThumb({ item }: { item: Referrer }) {
           <Button
             className="border-red-500 bg-red-200 border-[1px] px-5"
             onClick={() => {
-              setIsOpen(true);
               confirmModal.current?.showModal();
             }}
           >
@@ -45,21 +43,13 @@ export default function AdminRefThumb({ item }: { item: Referrer }) {
         </div>
       </div>
 
-      {
-        /**
-         * Additional piece of logic to keep modal from spawning on map
-         */
-        isOpen && (
-          <ConfirmModal
-            refObject={confirmModal}
-            text="Are you sure you wish to delete this post?"
-            setIsOpen={setIsOpen}
-            confirmCallback={() => {
-              deleteMutation.mutate(item._id);
-            }}
-          />
-        )
-      }
+      <ConfirmModal
+        refObject={confirmModal}
+        text="Are you sure you wish to delete this referrer?"
+        confirmCallback={() => {
+          deleteMutation.mutate(item._id);
+        }}
+      />
     </>
   );
 }
