@@ -4,6 +4,7 @@ import { MongoError } from "mongodb";
 import uploadsServices from "../dbServices/uploadsServices.js";
 import upload from "../upload.js";
 import fs from "fs";
+import referrerServices from "../dbServices/referrerServices.js";
 
 const router = express.Router();
 
@@ -100,12 +101,26 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
+  const cascade = req.query.cascade;
+
   try {
     await mongoConnect();
     const upload = await uploadsServices.deleteUpload(id);
     await mongoDisconnect();
     if (!upload) throw new Error("Unable to delete upload");
     try {
+      //if /:id?cascade=true, go through referrers and set any images with the deleted upload's ID to empty string
+      if (cascade === "true") {
+        const refs = await referrerServices.readReferrers({
+          image: upload._id
+        });
+
+        (refs as Referrer[]).forEach(
+          async (ref) =>
+            await referrerServices.updateReferrer(ref._id, { image: "" })
+        );
+      }
+
       fs.unlink(`.${upload.path}`, () => {
         res.status(200).send(upload);
       });

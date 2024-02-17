@@ -10,8 +10,10 @@ const addUpload = (formData: FormData, filetype: string) => {
     .then((res) => res.data);
 };
 
-const deleteUpload = (uploadId: string) => {
-  return axios.delete(`${baseURL}/uploads/${uploadId}`).then((res) => res.data);
+const deleteUpload = (uploadId: string, cascade?: boolean) => {
+  return axios
+    .delete(`${baseURL}/uploads/${uploadId}${cascade ? "?cascade=true" : ""}`)
+    .then((res) => res.data);
 };
 
 export default { addUpload, deleteUpload };
