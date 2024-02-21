@@ -5,7 +5,7 @@ interface RowWrapperProps
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  breakPoint: "sm" | "md" | "lg" | "xl";
+  breakPoint: "xs" | "sm" | "md" | "lg" | "xl";
   children: ReactNode;
   justify?:
     | "normal"
