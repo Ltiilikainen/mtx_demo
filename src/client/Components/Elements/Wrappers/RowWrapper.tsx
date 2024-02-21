@@ -5,28 +5,46 @@ interface RowWrapperProps
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  children?: ReactNode;
-  justify?: string;
-  align?: string;
+  breakPoint: "sm" | "md" | "lg" | "xl";
+  children: ReactNode;
+  justify?:
+    | "normal"
+    | "start"
+    | "end"
+    | "center"
+    | "between"
+    | "around"
+    | "evenly"
+    | "stretch";
+  align?:
+    | "normal"
+    | "start"
+    | "end"
+    | "center"
+    | "between"
+    | "around"
+    | "baseline"
+    | "evenly"
+    | "stretch";
   gap?: string;
   classname?: string;
 }
 
 export default function RowWrapper({
+  breakPoint,
   children,
   justify,
   align,
   gap,
-  classname,
+  className,
   ...rest
 }: RowWrapperProps) {
   return (
     <div
-      className={`flex flex-col md:flex-row ${
-        justify ? "md:justify-" + justify : ""
-      } ${align ? "md:content-" + align : ""} ${gap ? "gap-" + gap : ""} ${
-        classname ? classname : ""
-      }`}
+      className={`flex flex-col ${breakPoint}:flex-row ${
+        justify ? `justify-${justify}` : ""
+      } ${align ? `content-${align}` : ""} ${gap ? `gap-${gap}` : ""} 
+      ${className ? className : ""}`}
       {...rest}
     >
       {children}

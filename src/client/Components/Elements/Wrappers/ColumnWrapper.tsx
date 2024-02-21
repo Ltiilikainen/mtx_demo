@@ -6,8 +6,25 @@ interface ColumnWrapperProps
     HTMLDivElement
   > {
   children?: ReactNode;
-  justify?: string;
-  align?: string;
+  justify?:
+    | "normal"
+    | "start"
+    | "end"
+    | "center"
+    | "between"
+    | "around"
+    | "evenly"
+    | "stretch";
+  align?:
+    | "normal"
+    | "start"
+    | "end"
+    | "center"
+    | "between"
+    | "around"
+    | "baseline"
+    | "evenly"
+    | "stretch";
   gap?: string;
   classname?: string;
 }
@@ -22,9 +39,9 @@ export default function ColumnWrapper({
 }: ColumnWrapperProps) {
   return (
     <div
-      className={`flex flex-col ${justify ? "justify-" + justify : ""} ${
-        align ? "content-" + align : ""
-      } ${gap ? "gap-" + gap : ""} ${classname ? classname : ""}`}
+      className={`flex flex-col ${justify ? `justify-${justify}` : ""} ${
+        align ? `content-${align}` : ""
+      } ${gap ? `gap-${gap}` : ""} ${classname ? classname : ""}`}
       {...rest}
     >
       {children}
