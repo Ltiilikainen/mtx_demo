@@ -4,6 +4,8 @@ import TextAreaInput from "../Inputs/TextAreaInput";
 import TextInput from "../Inputs/TextInput";
 import DateInput from "../Inputs/DateInput";
 import { UseMutationResult } from "@tanstack/react-query";
+import RowWrapper from "../Wrappers/RowWrapper";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 type ContactFormProps = {
   setFormData: React.Dispatch<
@@ -62,10 +64,19 @@ export default function ContactForm({
       className="flex flex-col gap-6"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col gap-2">
+      <ColumnWrapper gap="2">
         <h5>Contact details</h5>
-        <div className="flex flex-col md:flex-row justify-between w-full">
-          <div className="flex flex-col md:flex-row gap-4 w-max justify-end">
+        <RowWrapper
+          breakPoint="md"
+          justify="between"
+          className="w-full"
+        >
+          <RowWrapper
+            breakPoint="md"
+            gap="4"
+            justify="end"
+            className="w-max"
+          >
             <label htmlFor="name">Name*</label>
             <TextInput
               id="name"
@@ -75,18 +86,32 @@ export default function ContactForm({
               aria-required
               autoFocus
             />
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 justify-end">
+          </RowWrapper>
+          <RowWrapper
+            breakPoint="md"
+            gap="4"
+            justify="end"
+            className="w-max"
+          >
             <label htmlFor="company">Company</label>
             <TextInput
               id="company"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
             />
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row justify-between w-full">
-          <div className="flex flex-col md:flex-row gap-4 w-max justify-end">
+          </RowWrapper>
+        </RowWrapper>
+        <RowWrapper
+          breakPoint="md"
+          justify="between"
+          className="w-full"
+        >
+          <RowWrapper
+            breakPoint="md"
+            gap="4"
+            justify="end"
+            className="w-max"
+          >
             <label htmlFor="email">Email*</label>
             <TextInput
               id="email"
@@ -95,8 +120,13 @@ export default function ContactForm({
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 justify-end">
+          </RowWrapper>
+          <RowWrapper
+            breakPoint="md"
+            gap="4"
+            justify="end"
+            className="w-max"
+          >
             <label htmlFor="phone">Phone</label>
             <TextInput
               id="phone"
@@ -104,11 +134,14 @@ export default function ContactForm({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col md:flex-row gap-4">
+          </RowWrapper>
+        </RowWrapper>
+      </ColumnWrapper>
+      <ColumnWrapper gap="2">
+        <RowWrapper
+          breakPoint="md"
+          gap="4"
+        >
           <label
             htmlFor="purpose"
             className="text-lg font-thin"
@@ -123,8 +156,11 @@ export default function ContactForm({
             required
             aria-required
           />
-        </div>
-        <div className="flex flex-col md:flex-row items-center md:justify-evenly w-full">
+        </RowWrapper>
+        <RowWrapper
+          breakPoint="md"
+          className="w-full items-center md:justify-evenly"
+        >
           <label htmlFor="startDate">
             <DateInput
               id="startDate"
@@ -144,7 +180,7 @@ export default function ContactForm({
               placeholder={new Date(Date.now()).toDateString()}
             />
           </label>
-        </div>
+        </RowWrapper>
         <label htmlFor="body">
           <TextAreaInput
             id="body"
@@ -157,7 +193,7 @@ export default function ContactForm({
             aria-required
           />
         </label>
-      </div>
+      </ColumnWrapper>
       <div className="flex flex-row justify-between">
         <Button
           className="border-slate-600 border-[1px] px-5"

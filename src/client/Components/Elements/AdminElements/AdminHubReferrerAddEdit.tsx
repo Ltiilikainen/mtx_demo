@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import ReferrerForm from "./ReferrerForm";
 import referrersServices from "../../../Services/referrersServices";
 import ErrorBox from "../ErrorBox";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 export default function AdminHubReferrerAddEdit() {
   const id = useParams().id;
@@ -20,11 +21,14 @@ export default function AdminHubReferrerAddEdit() {
 
     if (refQuery.isLoading)
       return (
-        <div className="flex flex-col gap-4 my-6 mx-auto">
+        <ColumnWrapper
+          gap="4"
+          className="my-6 mx-auto"
+        >
           <p className="text-center text-slate-500 animate-pulse">
             Loading information
           </p>
-        </div>
+        </ColumnWrapper>
       );
 
     if (refQuery.isSuccess && refQuery.data) {

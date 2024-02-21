@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import TextInput from "../Inputs/TextInput";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import referrersServices from "../../../Services/referrersServices";
 import { useNavigate } from "react-router";
 import Button from "../Button";
 import ReferrerThumbnail from "../ReferrerThumbnail";
 import uploadServices from "../../../Services/uploadServices";
 import ErrorBox from "../ErrorBox";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 type RefFormProps = {
   id?: string;
@@ -118,7 +119,10 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
   const navigate = useNavigate();
 
   return (
-    <div className={"my-8 mx-auto w-[90%] md:w-[70%] flex flex-col gap-4"}>
+    <ColumnWrapper
+      gap="4"
+      className="my-8 mx-auto w-[90%] md:w-[70%]"
+    >
       {refPreview ? (
         <div className="mx-auto">
           <ReferrerThumbnail
@@ -132,8 +136,8 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
           />
         </div>
       ) : (
-        <>
-          <div className="flex flex-col  w-full items-center">
+        <Fragment>
+          <ColumnWrapper className="items-center w-full">
             <div className="w-20 h-20 bg-slate-300 rounded-full overflow-hidden">
               {previewImgPath !== "" && (
                 <img
@@ -165,7 +169,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
                 }
               }}
             />
-          </div>
+          </ColumnWrapper>
 
           <TextInput
             id="refName"
@@ -188,7 +192,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
             onChange={(e) => setRefContent(e.target.value)}
             className="border-[1px] border-slate-200 rounded-sm py-2 px-4"
           ></textarea>
-        </>
+        </Fragment>
       )}
 
       <div className="flex justify-between mt-4">
@@ -212,6 +216,6 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
       </div>
       {addRefMutation.isError ||
         (editRefMutation.isError && <ErrorBox text="Please try again." />)}
-    </div>
+    </ColumnWrapper>
   );
 }

@@ -4,11 +4,12 @@ import AdminNewsList from "./AdminNewsList";
 import AdminHubReferrerAddEdit from "./AdminHubReferrerAddEdit";
 import AdminRefList from "./AdminRefList";
 import AdminMediaHub from "./AdminMediaHub";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 export default function AdminHub() {
   return (
     <div className="flex h-full">
-      <div className="flex flex-col border-r-[1px] border-r-slate-200 min-w-[30%] h-full">
+      <ColumnWrapper className="border-r-[1px] border-r-slate-200 min-w-[30%] h-full">
         <Link
           className="p-4 border-b-[1px] border-b-slate-200"
           to={"news/add"}
@@ -40,7 +41,7 @@ export default function AdminHub() {
         >
           Manage media
         </Link>
-      </div>
+      </ColumnWrapper>
       <div className="h-[95%] flex-grow my-6 mx-auto">
         <Routes>
           <Route

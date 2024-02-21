@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import newsFeedServices from "../../../Services/newsFeedServices";
 import AdminNewsThumb from "./AdminNewsThumb";
 import ErrorBox from "../ErrorBox";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 export default function AdminNewsList() {
   const newsFeedQuery = useQuery({
@@ -22,7 +23,7 @@ export default function AdminNewsList() {
     );
 
   return (
-    <div className="flex flex-col gap-2">
+    <ColumnWrapper gap="2">
       {newsFeedQuery.data && newsFeedQuery.data.length > 0 ? (
         newsFeedQuery.data.map((item: News) => {
           return (
@@ -34,6 +35,6 @@ export default function AdminNewsList() {
       ) : (
         <h5>There are no news posts</h5>
       )}
-    </div>
+    </ColumnWrapper>
   );
 }

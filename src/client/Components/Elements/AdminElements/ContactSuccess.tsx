@@ -11,11 +11,17 @@ export default function ContactSuccess({
       <h4 className="mb-4 justify-between">
         Successfully sent inquiry with the following contents:
       </h4>
-      <RowWrapper justify="between">
+      <RowWrapper
+        breakPoint="md"
+        justify="between"
+      >
         <p>Name: {formData ? formData.name : ""}</p>
         {formData && formData.company ? <p>Company: {formData.company}</p> : ""}
       </RowWrapper>
-      <RowWrapper justify="between">
+      <RowWrapper
+        breakPoint="md"
+        justify="between"
+      >
         <p>Email: {formData ? formData.email : ""}</p>
         {formData && formData.phone ? <p>Phone: {formData.phone}</p> : ""}
       </RowWrapper>
