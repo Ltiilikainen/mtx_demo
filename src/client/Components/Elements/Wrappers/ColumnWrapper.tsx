@@ -26,7 +26,7 @@ interface ColumnWrapperProps
     | "evenly"
     | "stretch";
   gap?: string;
-  classname?: string;
+  className?: string;
 }
 
 export default function ColumnWrapper({
@@ -34,14 +34,15 @@ export default function ColumnWrapper({
   justify,
   align,
   gap,
-  classname,
+  className,
   ...rest
 }: ColumnWrapperProps) {
   return (
     <div
       className={`flex flex-col ${justify ? `justify-${justify}` : ""} ${
         align ? `content-${align}` : ""
-      } ${gap ? `gap-${gap}` : ""} ${classname ? classname : ""}`}
+      } ${gap ? `gap-${gap}` : ""} 
+      ${className ? className : ""}`}
       {...rest}
     >
       {children}
