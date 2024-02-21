@@ -1,25 +1,31 @@
-import { ReactNode } from "react";
+import { DetailedHTMLProps, ReactNode } from "react";
 
-type ColumnWrapperProps = {
+interface ColumnWrapperProps
+  extends DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   children?: ReactNode;
   justify?: string;
   align?: string;
   gap?: string;
   classname?: string;
-};
+}
 
 export default function ColumnWrapper({
   children,
   justify,
   align,
   gap,
-  classname
+  classname,
+  ...rest
 }: ColumnWrapperProps) {
   return (
     <div
       className={`flex flex-col ${justify ? "justify-" + justify : ""} ${
         align ? "content-" + align : ""
       } ${gap ? "gap-" + gap : ""} ${classname ? classname : ""}`}
+      {...rest}
     >
       {children}
     </div>

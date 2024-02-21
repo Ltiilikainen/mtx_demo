@@ -1,19 +1,24 @@
-import { ReactNode } from "react";
+import { DetailedHTMLProps, ReactNode } from "react";
 
-type RowWrapperProps = {
+interface RowWrapperProps
+  extends DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   children?: ReactNode;
   justify?: string;
   align?: string;
   gap?: string;
   classname?: string;
-};
+}
 
 export default function RowWrapper({
   children,
   justify,
   align,
   gap,
-  classname
+  classname,
+  ...rest
 }: RowWrapperProps) {
   return (
     <div
@@ -22,6 +27,7 @@ export default function RowWrapper({
       } ${align ? "md:content-" + align : ""} ${gap ? "gap-" + gap : ""} ${
         classname ? classname : ""
       }`}
+      {...rest}
     >
       {children}
     </div>
