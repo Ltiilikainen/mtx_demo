@@ -8,6 +8,7 @@ import ReferrerThumbnail from "../ReferrerThumbnail";
 import uploadServices from "../../../Services/uploadServices";
 import ErrorBox from "../ErrorBox";
 import ColumnWrapper from "../Wrappers/ColumnWrapper";
+import TextAreaInput from "../Inputs/TextAreaInput";
 
 type RefFormProps = {
   id?: string;
@@ -185,13 +186,13 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
             onChange={(e) => setRefAffiliation(e.target.value)}
             className="py-2 px-4"
           />
-          <textarea
+          <TextAreaInput
             id="refContent"
             placeholder="Reference content"
             value={refContent}
             onChange={(e) => setRefContent(e.target.value)}
-            className="border-[1px] border-slate-200 rounded-sm py-2 px-4"
-          ></textarea>
+            className="py-2 px-4"
+          />
         </Fragment>
       )}
 
