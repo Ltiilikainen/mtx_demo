@@ -17,7 +17,7 @@ export default function PageContentWrapper({
     <div
       className={`px-4 ${
         customWidth ? customWidth : "w-[80%] lg:w-[60%]"
-      } mx-auto pt-2 flex flex-col ${classname ? classname : ""}`}
+      } mx-auto pt-2 pb-4 flex flex-col ${classname ? classname : ""}`}
     >
       {pageTitle && <h1>{pageTitle}</h1>}
       {children}
