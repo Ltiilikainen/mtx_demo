@@ -4,6 +4,7 @@ import ViteExpress from "vite-express";
 import newsRouter from "./routes/newsRouter.js";
 import referrersRouter from "./routes/referrersRouter.js";
 import uploadsRouter from "./routes/uploadsRouter.js";
+import { sendContactForm } from "./emailService.js";
 
 const app = express();
 app.use(express.json());
@@ -12,15 +13,11 @@ app.use("/api/news", newsRouter);
 app.use("/api/referrers", referrersRouter);
 app.use("/api/uploads", uploadsRouter);
 
-app.post("/api/contact", (req, res) => {
+app.post("/api/contact", async (req, res) => {
   try {
-    const data = req.body;
-    res
-      .status(200)
-      .send(
-        "You are trying to send a contact request email with the contents of " +
-          data
-      );
+    const formData = req.body.formData;
+    await sendContactForm(formData as ContactFormData);
+    res.status(200).send("Success");
   } catch (e) {
     console.log((e as Error).message);
     res.status(500).send("Unknown error occurred");

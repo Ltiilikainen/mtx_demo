@@ -38,3 +38,14 @@ interface UploadInput {
 interface Upload extends UploadInput {
   _id: Schema.Types.ObjectId | string;
 }
+
+type ContactFormData = {
+  name: string;
+  company: string;
+  email: string;
+  phone?: string;
+  purpose: string;
+  startDate: string;
+  endDate: string;
+  body: string;
+};
