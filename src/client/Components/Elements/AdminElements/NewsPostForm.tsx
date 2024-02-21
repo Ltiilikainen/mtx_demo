@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import TextInput from "../TextInput.js";
+import TextInput from "../Inputs/TextInput.js";
 import DOMPurify from "dompurify";
 import Button from "../Button.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

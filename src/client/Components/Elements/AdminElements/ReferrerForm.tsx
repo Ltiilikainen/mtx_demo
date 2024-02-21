@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import TextInput from "../TextInput";
+import TextInput from "../Inputs/TextInput";
 import { useState } from "react";
 import referrersServices from "../../../Services/referrersServices";
 import { useNavigate } from "react-router";
