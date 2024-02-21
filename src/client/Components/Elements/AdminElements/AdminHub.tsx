@@ -41,7 +41,7 @@ export default function AdminHub() {
           Manage media
         </Link>
       </div>
-      <div className="h-full flex-grow overflow-y-auto my-6 mx-auto">
+      <div className="h-[95%] flex-grow my-6 mx-auto">
         <Routes>
           <Route
             path="/"
