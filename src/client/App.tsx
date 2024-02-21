@@ -40,7 +40,7 @@ function App() {
             element={<About />}
           />
           <Route
-            path="/contact"
+            path="/contact/*"
             element={<Contact />}
           />
           <Route
