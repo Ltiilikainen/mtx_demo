@@ -1,5 +1,4 @@
 import { DetailedHTMLProps, ReactNode } from "react";
-
 interface RowWrapperProps
   extends DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
@@ -41,9 +40,14 @@ export default function RowWrapper({
 }: RowWrapperProps) {
   return (
     <div
-      className={`flex flex-col ${breakPoint}:flex-row ${
-        justify ? `justify-${justify}` : ""
-      } ${align ? `content-${align}` : ""} ${gap ? `gap-${gap}` : ""} 
+      className={`${breakPoint === "xs" && "xs-row"} ${
+        //the breakpoint class conditionals need to be declared one at a time to work correctly
+        breakPoint === "sm" && "sm-row"
+      } ${breakPoint === "md" && "md-row"} ${breakPoint === "lg" && "lg-row"}${
+        breakPoint === "xl" && "xl-row"
+      }   ${justify ? `justify-${justify}` : ""} ${
+        align ? `content-${align}` : ""
+      } ${gap ? `gap-${gap}` : ""} 
       ${className ? className : ""}`}
       {...rest}
     >
