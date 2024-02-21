@@ -1,5 +1,5 @@
-import ColumnWrapper from "./Elements/Wrappers/ColumnWrapper";
-import RowWrapper from "./Elements/Wrappers/RowWrapper";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
+import RowWrapper from "../Wrappers/RowWrapper";
 
 export default function ContactSuccess({
   formData

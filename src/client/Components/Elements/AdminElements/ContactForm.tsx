@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import Button from "./Elements/Button";
-import TextAreaInput from "./Elements/Inputs/TextAreaInput";
-import TextInput from "./Elements/Inputs/TextInput";
-import DateInput from "./Elements/Inputs/DateInput";
+import Button from "../Button";
+import TextAreaInput from "../Inputs/TextAreaInput";
+import TextInput from "../Inputs/TextInput";
+import DateInput from "../Inputs/DateInput";
 import { UseMutationResult } from "@tanstack/react-query";
 
 type ContactFormProps = {

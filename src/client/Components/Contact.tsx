@@ -1,8 +1,8 @@
 import { Route, Routes, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import contactService from "../Services/contactService";
-import ContactForm from "./ContactForm";
-import ContactSuccess from "./ContactSuccess";
+import ContactForm from "./Elements/AdminElements/ContactForm";
+import ContactSuccess from "./Elements/AdminElements/ContactSuccess";
 import { useState } from "react";
 import ErrorBox from "./Elements/ErrorBox";
 
