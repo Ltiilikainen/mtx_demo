@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import newsFeedServices from "../../../Services/newsFeedServices.js";
 import uploadServices from "../../../Services/uploadServices.js";
+import ErrorBox from "../ErrorBox.js";
 
 type NewsPostFormProps = {
   id?: string;
@@ -166,11 +167,7 @@ export default function NewsPostForm({
         </Button>
       </div>
       {addNewsMutation.isError ||
-        (editNewsMutation.isError && (
-          <div className="my-4 mx-auto border-[1px] border-red-600 bg-red-200 text-red-900 rounded-sm">
-            <p>An error occurred</p>
-          </div>
-        ))}
+        (editNewsMutation.isError && <ErrorBox text="Please try again." />)}
     </div>
   );
 }

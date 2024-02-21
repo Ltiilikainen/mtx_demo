@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import referrersServices from "../../Services/referrersServices";
 import ReferrerThumbnail from "./ReferrerThumbnail";
+import ErrorBox from "./ErrorBox";
 
 export default function ReferenceList({ limit }: { limit?: number }) {
   const referenceQuery = useQuery({
@@ -15,7 +16,7 @@ export default function ReferenceList({ limit }: { limit?: number }) {
   }
 
   if (referenceQuery.isError) {
-    return <p>Error! {referenceQuery.error.message}</p>;
+    return <ErrorBox text={referenceQuery.error.message} />;
   }
 
   return (

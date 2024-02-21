@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import referrersServices from "../../../Services/referrersServices";
 import AdminRefThumb from "./AdminRefThumb";
+import ErrorBox from "../ErrorBox";
 
 export default function AdminRefList() {
   const referrerQuery = useQuery({
@@ -11,14 +12,7 @@ export default function AdminRefList() {
   });
 
   if (referrerQuery.isError)
-    return (
-      <div className="flex flex-col gap-4 my-6 mx-auto">
-        <h5 className="text-center text-red-900">Error!</h5>
-        <p className="text-center text-red-600">
-          {referrerQuery.error.message}
-        </p>
-      </div>
-    );
+    return <ErrorBox text={referrerQuery.error.message} />;
 
   if (referrerQuery.isLoading)
     return (

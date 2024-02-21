@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import Button from "../Button";
 import ReferrerThumbnail from "../ReferrerThumbnail";
 import uploadServices from "../../../Services/uploadServices";
+import ErrorBox from "../ErrorBox";
 
 type RefFormProps = {
   id?: string;
@@ -210,11 +211,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
         </Button>
       </div>
       {addRefMutation.isError ||
-        (editRefMutation.isError && (
-          <div className="my-4 mx-auto border-[1px] border-red-600 bg-red-200 text-red-900 rounded-sm">
-            <p>An error occurred</p>
-          </div>
-        ))}
+        (editRefMutation.isError && <ErrorBox text="Please try again." />)}
     </div>
   );
 }

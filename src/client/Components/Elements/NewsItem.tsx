@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import { useParams } from "react-router";
 import newsFeedServices from "../../Services/newsFeedServices";
+import ErrorBox from "./ErrorBox";
 
 export default function NewsItem() {
   const id = useParams().id;
@@ -13,11 +14,7 @@ export default function NewsItem() {
   });
 
   if (!id || newsItem.isError) {
-    return (
-      <div className="w-full flex flex-col my-4">
-        <h5>Error loading post</h5>
-      </div>
-    );
+    return <ErrorBox text="Could not load post" />;
   } else if (newsItem.isLoading) {
     <div className="w-full flex flex-col gap-4 m-4">
       <div className="h-20 w-80 animate-pulse"></div>

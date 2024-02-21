@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import newsFeedServices from "../../../Services/newsFeedServices.js";
 import NewsPostForm from "./NewsPostForm.js";
+import ErrorBox from "../ErrorBox.js";
 
 export default function AdminHubNewsAddEdit() {
   const id = useParams().id;
@@ -16,14 +17,7 @@ export default function AdminHubNewsAddEdit() {
     });
 
     if (getNewsQuery.isError)
-      return (
-        <div className="flex flex-col gap-4 my-6 mx-auto">
-          <h5 className="text-center text-red-900">Error!</h5>
-          <p className="text-center text-red-600">
-            {getNewsQuery.error.message}
-          </p>
-        </div>
-      );
+      return <ErrorBox text={getNewsQuery.error.message} />;
 
     if (getNewsQuery.isLoading)
       return (

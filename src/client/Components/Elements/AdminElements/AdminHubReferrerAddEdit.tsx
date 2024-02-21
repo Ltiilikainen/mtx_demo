@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import ReferrerForm from "./ReferrerForm";
 import referrersServices from "../../../Services/referrersServices";
+import ErrorBox from "../ErrorBox";
 
 export default function AdminHubReferrerAddEdit() {
   const id = useParams().id;
@@ -15,13 +16,7 @@ export default function AdminHubReferrerAddEdit() {
       }
     });
 
-    if (refQuery.isError)
-      return (
-        <div className="flex flex-col gap-4 my-6 mx-auto">
-          <h5 className="text-center text-red-900">Error!</h5>
-          <p className="text-center text-red-600">{refQuery.error.message}</p>
-        </div>
-      );
+    if (refQuery.isError) return <ErrorBox text={refQuery.error.message} />;
 
     if (refQuery.isLoading)
       return (

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import newsFeedServices from "../../Services/newsFeedServices";
 import NewsThumbnail from "./NewsThumbnail";
+import ErrorBox from "./ErrorBox";
 
 export default function NewsFeedElement({ limit }: { limit?: number }) {
   const newsFeedQuery = useQuery({
@@ -15,7 +16,7 @@ export default function NewsFeedElement({ limit }: { limit?: number }) {
   }
 
   if (newsFeedQuery.isError) {
-    return <p>Error! {newsFeedQuery.error.message}</p>;
+    return <ErrorBox text={newsFeedQuery.error.message} />;
   }
 
   return (

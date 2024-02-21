@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import newsFeedServices from "../../../Services/newsFeedServices";
 import AdminNewsThumb from "./AdminNewsThumb";
+import ErrorBox from "../ErrorBox";
 
 export default function AdminNewsList() {
   const newsFeedQuery = useQuery({
@@ -11,14 +12,7 @@ export default function AdminNewsList() {
   });
 
   if (newsFeedQuery.isError)
-    return (
-      <div className="flex flex-col gap-4 my-6 mx-auto">
-        <h5 className="text-center text-red-900">Error!</h5>
-        <p className="text-center text-red-600">
-          {newsFeedQuery.error.message}
-        </p>
-      </div>
-    );
+    return <ErrorBox text={newsFeedQuery.error.message} />;
 
   if (newsFeedQuery.isLoading)
     return (
