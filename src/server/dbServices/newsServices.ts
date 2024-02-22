@@ -1,4 +1,4 @@
-import News from "../schemas/News.js";
+import News from "../schemas/News";
 
 function readNews(query?: { [key: string]: unknown } | number) {
   if (typeof query === "number")

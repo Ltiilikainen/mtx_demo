@@ -1,7 +1,7 @@
 import express from "express";
 import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
 import uploadsServices from "../dbServices/uploadsServices.js";
-import upload from "../upload.js";
+import upload from "../utils/upload.js";
 import fs from "fs";
 import referrerServices from "../dbServices/referrerServices.js";
 import { handleError } from "../main.js";

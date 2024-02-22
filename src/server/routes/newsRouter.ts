@@ -1,7 +1,7 @@
 import express from "express";
-import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
-import newsServices from "../dbServices/newsServices.js";
-import { handleError } from "../main.js";
+import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect";
+import newsServices from "../dbServices/newsServices";
+import { handleError } from "../main";
 
 const router = express.Router();
 
