@@ -18,6 +18,10 @@ router.get("/", async (_, res) => {
 
 router.post("/", async (req, res) => {
   const newsItem: NewsInput = req.body.newsItem;
+  if (!newsItem || !newsItem.title || !newsItem.body) {
+    res.status(401).send("Invalid or missing parameters");
+    return;
+  }
   try {
     await mongoConnect();
     const newNewsItem = await newsServices.addNewsItem(newsItem);
