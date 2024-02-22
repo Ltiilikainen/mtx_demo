@@ -117,9 +117,9 @@ router.delete("/:id", async (req, res) => {
           if (upload.type === "audio") type = "audio";
           await uploadsServices.writeUpload({ path: upload.path, type: type });
           await mongoDisconnect();
-          res.status(200).send("OK");
+          res.status(500).send("Internal server error");
         }
-        res.status(500).send("Internal server error");
+        res.status(200).send("OK");
       });
     }
     await mongoDisconnect();
