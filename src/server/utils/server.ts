@@ -1,6 +1,6 @@
 import express from "express";
 import { sendContactForm } from "./emailService";
-import { handleError } from "../main";
+import handleError from "./errorHandler";
 import newsRouter from "../routes/newsRouter";
 import referrersRouter from "../routes/referrersRouter";
 import uploadsRouter from "../routes/uploadsRouter";

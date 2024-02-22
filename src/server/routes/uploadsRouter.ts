@@ -4,7 +4,7 @@ import uploadsServices from "../dbServices/uploadsServices.js";
 import upload from "../utils/upload.js";
 import fs from "fs";
 import referrerServices from "../dbServices/referrerServices.js";
-import { handleError } from "../main.js";
+import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
