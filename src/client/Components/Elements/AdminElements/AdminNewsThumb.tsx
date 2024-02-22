@@ -2,7 +2,7 @@ import NewsThumbnail from "../NewsThumbnail";
 import Button from "../Button";
 import ConfirmModal from "../ConfirmModal";
 import { useNavigate } from "react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import newsFeedServices from "../../../Services/newsFeedServices";
 
@@ -19,6 +19,7 @@ export default function AdminNewsThumb({ item }: { item: News }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
+      queryClient.refetchQueries({ queryKey: ["news", "index"] });
     }
   });
   return (

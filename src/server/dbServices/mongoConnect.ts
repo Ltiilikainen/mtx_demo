@@ -9,21 +9,27 @@ const mongoUser = process.env.MONGODB_USER;
 const mongoPwd = process.env.MONGODB_PASSWORD;
 
 export async function mongoConnect() {
-  try {
-    await mongoose.connect(mongoDbUrl, {
-      auth: { username: mongoUser, password: mongoPwd }
-    });
-  } catch (e) {
-    errorLogger.log("warn", (e as Error).message);
-    return;
+  //skip try-catch if client is connected
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await mongoose.connect(mongoDbUrl, {
+        auth: { username: mongoUser, password: mongoPwd }
+      });
+    } catch (e) {
+      errorLogger.log("warn", (e as Error).message);
+      return;
+    }
   }
 }
 
 export async function mongoDisconnect() {
-  try {
-    await mongoose.disconnect();
-  } catch (e) {
-    errorLogger.log("warn", (e as Error).message);
-    return;
+  //don't disconnect if the readyState is at "connecting"
+  if (mongoose.connection.readyState !== 2) {
+    try {
+      await mongoose.disconnect();
+    } catch (e) {
+      errorLogger.log("warn", (e as Error).message);
+      return;
+    }
   }
 }

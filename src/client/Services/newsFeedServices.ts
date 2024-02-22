@@ -2,8 +2,10 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3001/api";
 
-const getAllNews = () => {
-  return axios.get(`${baseURL}/news`).then((res) => res.data);
+const getAllNews = (limit?: number) => {
+  return axios
+    .get(`${baseURL}/news${limit ? "?limit=" + limit : ""}`)
+    .then((res) => res.data);
 };
 
 const getNewsById = (id: string) => {

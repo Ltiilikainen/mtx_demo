@@ -87,6 +87,7 @@ export default function NewsPostForm({
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
+      queryClient.refetchQueries({ queryKey: ["news", "index"] });
       navigate(`/news/${data._id}`);
     }
   });
