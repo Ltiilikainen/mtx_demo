@@ -1,10 +1,11 @@
 import { Route, Routes, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import contactService from "../Services/contactService";
-import ContactForm from "./ContactForm";
-import ContactSuccess from "./ContactSuccess";
+import ContactForm from "./Elements/AdminElements/ContactForm";
+import ContactSuccess from "./Elements/AdminElements/ContactSuccess";
 import { useState } from "react";
 import ErrorBox from "./Elements/ErrorBox";
+import PageContentWrapper from "./Elements/Wrappers/PageContentWrapper";
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -23,9 +24,8 @@ export default function Contact() {
   });
 
   return (
-    <div className="px-4 pb-8 h-max">
-      <h1 className="w-[80%] lg:w-[60%] mx-auto">Contact</h1>
-      <div className="my-2 border-[1px] px-10 border-slate-200 py-8 w-[80%] lg:w-[60%] mx-auto">
+    <PageContentWrapper pageTitle="Contact">
+      <div className="my-2 border-[1px] px-10 border-slate-200 py-8">
         {error && <ErrorBox text="Please try again." />}
         <Routes>
           <Route
@@ -44,6 +44,6 @@ export default function Contact() {
           />
         </Routes>
       </div>
-    </div>
+    </PageContentWrapper>
   );
 }

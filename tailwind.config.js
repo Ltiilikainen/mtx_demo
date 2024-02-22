@@ -20,7 +20,20 @@ export default {
         "md-2xl": "1.602rem",
         "md-3xl": "1.802rem",
         "md-4xl": "2.027rem"
+      },
+
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px"
       }
+    },
+
+    screens: {
+      xs: "400px",
+      ...defaultTheme.screens
     }
   },
   plugins: []

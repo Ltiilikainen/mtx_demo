@@ -1,47 +1,22 @@
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AdminHubNewsAddEdit from "./AdminHubNewsAddEdit";
 import AdminNewsList from "./AdminNewsList";
 import AdminHubReferrerAddEdit from "./AdminHubReferrerAddEdit";
 import AdminRefList from "./AdminRefList";
 import AdminMediaHub from "./AdminMediaHub";
+import AdminMenu from "./AdminMenu";
+import { useState } from "react";
 
 export default function AdminHub() {
+  const [menuClosed, setMenuClosed] = useState(true);
+
   return (
     <div className="flex h-full">
-      <div className="flex flex-col border-r-[1px] border-r-slate-200 min-w-[30%] h-full">
-        <Link
-          className="p-4 border-b-[1px] border-b-slate-200"
-          to={"news/add"}
-        >
-          Add news
-        </Link>
-        <Link
-          className="p-4 border-b-[1px] border-b-slate-200"
-          to={"news"}
-        >
-          Manage news
-        </Link>
-        <Link
-          className="p-4 border-b-[1px] border-b-slate-200"
-          to={"referrer/"}
-        >
-          Add reference
-        </Link>
-        <Link
-          className="p-4 border-b-[1px] border-b-slate-200"
-          to={"referrers/"}
-        >
-          Manage references
-        </Link>
-
-        <Link
-          className="p-4 border-b-[1px] border-b-slate-200"
-          to={"media/"}
-        >
-          Manage media
-        </Link>
-      </div>
-      <div className="h-full flex-grow overflow-y-auto my-6 mx-auto">
+      <AdminMenu
+        isClosed={menuClosed}
+        setIsClosed={setMenuClosed}
+      />
+      <div className="h-[95%] flex-grow my-6 mx-auto">
         <Routes>
           <Route
             path="/"

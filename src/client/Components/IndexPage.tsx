@@ -1,14 +1,12 @@
 import NewsFeedElement from "./Elements/NewsFeedElement";
 import ReferenceList from "./Elements/ReferenceList";
+import PageContentWrapper from "./Elements/Wrappers/PageContentWrapper";
 
 export default function IndexPage() {
   return (
-    <div className="px-4 pt-2">
-      <h1>Home</h1>
-
+    <PageContentWrapper classname="gap-4">
       <ReferenceList limit={3} />
-
       <NewsFeedElement limit={10} />
-    </div>
+    </PageContentWrapper>
   );
 }

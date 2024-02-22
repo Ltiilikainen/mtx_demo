@@ -1,11 +1,10 @@
 import NewsFeedElement from "./Elements/NewsFeedElement";
+import PageContentWrapper from "./Elements/Wrappers/PageContentWrapper";
 
 export default function NewsFeed() {
   return (
-    <div className="px-4 pt-2">
-      <h1>This is the news feed</h1>
-
+    <PageContentWrapper pageTitle="News">
       <NewsFeedElement />
-    </div>
+    </PageContentWrapper>
   );
 }

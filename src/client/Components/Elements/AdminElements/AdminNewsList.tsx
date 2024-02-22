@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import newsFeedServices from "../../../Services/newsFeedServices";
 import AdminNewsThumb from "./AdminNewsThumb";
+import ErrorBox from "../ErrorBox";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
 
 export default function AdminNewsList() {
   const newsFeedQuery = useQuery({
@@ -11,14 +13,7 @@ export default function AdminNewsList() {
   });
 
   if (newsFeedQuery.isError)
-    return (
-      <div className="flex flex-col gap-4 my-6 mx-auto">
-        <h5 className="text-center text-red-900">Error!</h5>
-        <p className="text-center text-red-600">
-          {newsFeedQuery.error.message}
-        </p>
-      </div>
-    );
+    return <ErrorBox text={newsFeedQuery.error.message} />;
 
   if (newsFeedQuery.isLoading)
     return (
@@ -28,7 +23,7 @@ export default function AdminNewsList() {
     );
 
   return (
-    <div className="flex flex-col gap-2">
+    <ColumnWrapper gap="2">
       {newsFeedQuery.data && newsFeedQuery.data.length > 0 ? (
         newsFeedQuery.data.map((item: News) => {
           return (
@@ -40,6 +35,6 @@ export default function AdminNewsList() {
       ) : (
         <h5>There are no news posts</h5>
       )}
-    </div>
+    </ColumnWrapper>
   );
 }

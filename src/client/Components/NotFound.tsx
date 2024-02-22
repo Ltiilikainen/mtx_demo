@@ -1,19 +1,21 @@
 import { useNavigate } from "react-router";
 import Button from "./Elements/Button";
+import PageContentWrapper from "./Elements/Wrappers/PageContentWrapper";
 
 export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="px-4 pt-2 text-center">
-      <h1>There's no content here.</h1>
-
+    <PageContentWrapper
+      pageTitle="There's no content here."
+      classname="text-center"
+    >
       <Button
         className="px-2 py-1"
         onClick={() => navigate("/")}
       >
         Return home
       </Button>
-    </div>
+    </PageContentWrapper>
   );
 }

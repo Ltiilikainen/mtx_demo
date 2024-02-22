@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import referrersServices from "../../Services/referrersServices";
 import ReferrerThumbnail from "./ReferrerThumbnail";
+import ErrorBox from "./ErrorBox";
+import RowWrapper from "./Wrappers/RowWrapper";
 
 export default function ReferenceList({ limit }: { limit?: number }) {
   const referenceQuery = useQuery({
@@ -15,11 +17,16 @@ export default function ReferenceList({ limit }: { limit?: number }) {
   }
 
   if (referenceQuery.isError) {
-    return <p>Error! {referenceQuery.error.message}</p>;
+    return <ErrorBox text={referenceQuery.error.message} />;
   }
 
   return (
-    <div className="flex flex-col h-max py-2 mx-auto w-max md:flex-row gap-2 md:gap-4 md:w-full md:justify-center my-2">
+    <RowWrapper
+      breakPoint="md"
+      gap="2"
+      justify="center"
+      className="py-2 my-2 md:gap-4"
+    >
       {referenceQuery.data && referenceQuery.data.length > 0 ? (
         referenceQuery.data.map((item: Referrer) => {
           return (
@@ -32,6 +39,6 @@ export default function ReferenceList({ limit }: { limit?: number }) {
       ) : (
         <h5>There are no references</h5>
       )}
-    </div>
+    </RowWrapper>
   );
 }

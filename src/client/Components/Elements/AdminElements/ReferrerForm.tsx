@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import TextInput from "../TextInput";
-import { useState } from "react";
+import TextInput from "../Inputs/TextInput";
+import { Fragment, useState } from "react";
 import referrersServices from "../../../Services/referrersServices";
 import { useNavigate } from "react-router";
 import Button from "../Button";
 import ReferrerThumbnail from "../ReferrerThumbnail";
 import uploadServices from "../../../Services/uploadServices";
+import ErrorBox from "../ErrorBox";
+import ColumnWrapper from "../Wrappers/ColumnWrapper";
+import TextAreaInput from "../Inputs/TextAreaInput";
 
 type RefFormProps = {
   id?: string;
@@ -117,7 +120,10 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
   const navigate = useNavigate();
 
   return (
-    <div className={"my-8 mx-auto w-[90%] md:w-[70%] flex flex-col gap-4"}>
+    <ColumnWrapper
+      gap="4"
+      className="my-8 mx-auto w-[90%] md:w-[70%]"
+    >
       {refPreview ? (
         <div className="mx-auto">
           <ReferrerThumbnail
@@ -131,8 +137,8 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
           />
         </div>
       ) : (
-        <>
-          <div className="flex flex-col  w-full items-center">
+        <Fragment>
+          <ColumnWrapper className="items-center w-full">
             <div className="w-20 h-20 bg-slate-300 rounded-full overflow-hidden">
               {previewImgPath !== "" && (
                 <img
@@ -164,7 +170,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
                 }
               }}
             />
-          </div>
+          </ColumnWrapper>
 
           <TextInput
             id="refName"
@@ -180,14 +186,14 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
             onChange={(e) => setRefAffiliation(e.target.value)}
             className="py-2 px-4"
           />
-          <textarea
+          <TextAreaInput
             id="refContent"
             placeholder="Reference content"
             value={refContent}
             onChange={(e) => setRefContent(e.target.value)}
-            className="border-[1px] border-slate-200 rounded-sm py-2 px-4"
-          ></textarea>
-        </>
+            className="py-2 px-4"
+          />
+        </Fragment>
       )}
 
       <div className="flex justify-between mt-4">
@@ -210,11 +216,7 @@ export default function ReferrerForm({ id, referrer }: RefFormProps) {
         </Button>
       </div>
       {addRefMutation.isError ||
-        (editRefMutation.isError && (
-          <div className="my-4 mx-auto border-[1px] border-red-600 bg-red-200 text-red-900 rounded-sm">
-            <p>An error occurred</p>
-          </div>
-        ))}
-    </div>
+        (editRefMutation.isError && <ErrorBox text="Please try again." />)}
+    </ColumnWrapper>
   );
 }
