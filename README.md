@@ -110,3 +110,6 @@ This repository is a demo version of the web app I am currently building for a s
       response: deleted upload / "OK"
 ## Considerations
 ReactQuill, which is currently in use in the NewsPostForm component, is using a depreciated DOM Mutation Event. The package may need to be swapped to a different text editor in the future if the event type is not updated.
+
+## License
+MIT
