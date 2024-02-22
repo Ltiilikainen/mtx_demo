@@ -2,6 +2,7 @@ import express from "express";
 import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
 import { MongoError } from "mongodb";
 import referrerServices from "../dbServices/referrerServices.js";
+import { handleError } from "../main.js";
 
 const router = express.Router();
 
@@ -12,13 +13,7 @@ router.get("/", async (_, res) => {
     await mongoDisconnect();
     res.status(200).send(referrers);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -30,13 +25,7 @@ router.post("/", async (req, res) => {
     await mongoDisconnect();
     res.status(201).send(newReferrer);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -48,13 +37,7 @@ router.get("/:id", async (req, res) => {
     await mongoDisconnect();
     res.status(200).send((referrers as Referrer[])[0]);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -68,13 +51,7 @@ router.put("/:id", async (req, res) => {
     await mongoDisconnect();
     res.status(200).send(updatedRef);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -87,13 +64,7 @@ router.delete("/:id", async (req, res) => {
     await mongoDisconnect();
     res.status(200).send(deletedRef);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 

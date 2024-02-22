@@ -5,6 +5,8 @@ import newsRouter from "./routes/newsRouter.js";
 import referrersRouter from "./routes/referrersRouter.js";
 import uploadsRouter from "./routes/uploadsRouter.js";
 import { sendContactForm } from "./emailService.js";
+import { MongoError } from "mongodb";
+import errorLogger from "./logger.js";
 
 const app = express();
 app.use(express.json());
@@ -19,11 +21,19 @@ app.post("/api/contact", async (req, res) => {
     await sendContactForm(formData as ContactFormData);
     res.status(200).send("Success");
   } catch (e) {
-    console.log((e as Error).message);
-    res.status(500).send("Unknown error occurred");
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
 ViteExpress.listen(app, 3001, () =>
   console.log("Server is listening on port 3001...")
 );
+
+export function handleError(e: unknown, callback: () => void) {
+  if (e instanceof MongoError) {
+    errorLogger.log("error", "Mongo error: " + e.message);
+  } else {
+    errorLogger.log("error", (e as Error).message);
+  }
+  callback();
+}
