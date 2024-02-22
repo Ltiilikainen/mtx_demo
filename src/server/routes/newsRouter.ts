@@ -5,12 +5,19 @@ import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
-router.get("/", async (_, res) => {
+router.get("/", async (req, res) => {
+  const limit = req.query.limit;
+
   try {
     await mongoConnect();
-    const news = await newsServices.readNews();
+    if (limit && typeof limit === "string") {
+      const news = await newsServices.readNews(parseInt(limit));
+      res.status(200).send(news);
+    } else {
+      const news = await newsServices.readNews();
+      res.status(200).send(news);
+    }
     await mongoDisconnect();
-    res.status(200).send(news);
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }

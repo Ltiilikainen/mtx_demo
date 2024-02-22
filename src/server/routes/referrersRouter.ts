@@ -5,12 +5,20 @@ import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
-router.get("/", async (_, res) => {
+router.get("/", async (req, res) => {
+  const limit = req.query.limit;
   try {
     await mongoConnect();
-    const referrers = await referrerServices.readReferrers();
+    if (limit && typeof limit === "string") {
+      const referrers = await referrerServices.readReferrers({
+        sample: parseInt(limit)
+      });
+      res.status(200).send(referrers);
+    } else {
+      const referrers = await referrerServices.readReferrers();
+      res.status(200).send(referrers);
+    }
     await mongoDisconnect();
-    res.status(200).send(referrers);
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }

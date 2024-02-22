@@ -3,7 +3,7 @@ import Referrers from "../schemas/Referrers";
 function readReferrers(query?: { [key: string]: unknown }) {
   if (query?.sample)
     return Referrers.aggregate([
-      { $sample: { size: 3 } },
+      { $sample: { size: Number(query.sample) } },
       { $addFields: { image: { $toObjectId: "$image" } } },
       {
         $lookup: {

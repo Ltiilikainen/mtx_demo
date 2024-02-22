@@ -2,8 +2,10 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3001/api";
 
-const getAllReferrers = () => {
-  return axios.get(`${baseURL}/referrers`).then((res) => res.data);
+const getAllReferrers = (limit?: number) => {
+  return axios
+    .get(`${baseURL}/referrers${limit ? "?limit=" + limit : ""}`)
+    .then((res) => res.data);
 };
 
 const getReferrerById = (id: string) => {
