@@ -1,6 +1,6 @@
 import multer from "multer";
 import path from "path";
-import errorLogger from "./logger.js";
+import errorLogger from "./logger";
 
 //create multer instance
 const upload = multer({
