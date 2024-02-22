@@ -23,7 +23,7 @@ export async function mongoDisconnect() {
   try {
     await mongoose.disconnect();
   } catch (e) {
-    console.log("warn", (e as Error).message);
+    errorLogger.log("warn", (e as Error).message);
     return;
   }
 }
