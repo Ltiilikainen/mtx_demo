@@ -1,17 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import newsFeedServices from "../../Services/newsFeedServices";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import NewsThumbnail from "./NewsThumbnail";
 import ErrorBox from "./ErrorBox";
 import ColumnWrapper from "./Wrappers/ColumnWrapper";
 
-export default function NewsFeedElement({ limit }: { limit?: number }) {
-  const newsFeedQuery = useQuery({
-    queryKey: ["news"],
-    queryFn: () => {
-      return newsFeedServices.getAllNews();
-    }
-  });
-
+export default function NewsFeedElement({
+  newsFeedQuery
+}: {
+  newsFeedQuery: UseQueryResult<any, Error>;
+}) {
   if (newsFeedQuery.isLoading) {
     return <p>Loading news...</p>;
   }

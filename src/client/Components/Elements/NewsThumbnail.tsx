@@ -13,7 +13,7 @@ export default function NewsThumbnail({ newsItem }: NewsThumbProps) {
     <ColumnWrapper
       id={newsItem._id}
       gap="2"
-      className="rounded-sm border-[1px] border-slate-200 p-4"
+      className="rounded-sm border-[1px] border-slate-200 p-4 w-full"
     >
       <RowWrapper
         breakPoint="sm"
