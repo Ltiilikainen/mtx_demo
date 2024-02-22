@@ -1,10 +1,10 @@
 import express from "express";
 import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
-import { MongoError } from "mongodb";
 import uploadsServices from "../dbServices/uploadsServices.js";
 import upload from "../upload.js";
 import fs from "fs";
 import referrerServices from "../dbServices/referrerServices.js";
+import { handleError } from "../main.js";
 
 const router = express.Router();
 
@@ -15,13 +15,7 @@ router.get("/", async (_, res) => {
     await mongoDisconnect();
     res.status(200).send(uploads);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -33,12 +27,13 @@ router.post("/", async (req, res) => {
   if (!file) return res.status(400).send("Missing file!");
 
   if (uploadInfo === "image") {
-    upload.img(req, res, async (error) => {
-      if (error) {
-        console.log((error as Error).message);
-        if ((error as Error).message === "Invalid file type")
-          res.send("Invalid file type.");
-        else res.send("Internal server error.");
+    upload.img(req, res, async (e) => {
+      if (e) {
+        handleError(e, () => {
+          if ((e as Error).message === "Invalid file type")
+            res.status(400).send("Invalid file type");
+          else res.status(500).send("Internal server error");
+        });
       } else {
         try {
           await mongoConnect();
@@ -50,13 +45,7 @@ router.post("/", async (req, res) => {
 
           res.status(201).send(upload);
         } catch (e) {
-          if (e instanceof MongoError) {
-            console.log("Mongo error: " + e.message);
-            res.status(500).send("Internal server error");
-          } else {
-            console.log((e as Error).message);
-            res.status(500).send("Unknown error occurred");
-          }
+          handleError(e, () => res.status(500).send("Internal server error"));
         }
       }
     });
@@ -69,13 +58,7 @@ router.get("/:id", async (req, res) => {
     const uploads = await uploadsServices.readUploads({ _id: id });
     res.status(200).send(uploads[0]);
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -88,13 +71,7 @@ router.put("/:id", async (req, res) => {
     const upload = await uploadsServices.updateUpload(id, updatedInfo);
     await mongoDisconnect();
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
@@ -125,23 +102,18 @@ router.delete("/:id", async (req, res) => {
         res.status(200).send(upload);
       });
     } catch (e) {
-      console.log((e as Error).message);
-      let type: "image" | "audio" | "video" = "image";
-      if (upload.type === "image") type = "image";
-      if (upload.type === "video") type = "video";
-      if (upload.type === "audio") type = "audio";
-      uploadsServices.writeUpload({ path: upload.path, type: type });
+      handleError(e, async () => {
+        let type: "image" | "audio" | "video" = "image";
+        if (upload.type === "image") type = "image";
+        if (upload.type === "video") type = "video";
+        if (upload.type === "audio") type = "audio";
+        await uploadsServices.writeUpload({ path: upload.path, type: type });
 
-      res.status(500).send("Internal server error");
+        res.status(500).send("Internal server error");
+      });
     }
   } catch (e) {
-    if (e instanceof MongoError) {
-      console.log("Mongo error: " + e.message);
-      res.status(500).send("Internal server error");
-    } else {
-      console.log((e as Error).message);
-      res.status(500).send("Unknown error occurred");
-    }
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 

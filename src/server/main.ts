@@ -20,8 +20,7 @@ app.post("/api/contact", async (req, res) => {
     await sendContactForm(formData as ContactFormData);
     res.status(200).send("Success");
   } catch (e) {
-    console.log((e as Error).message);
-    res.status(500).send("Unknown error occurred");
+    handleError(e, () => res.status(500).send("Internal server error"));
   }
 });
 
