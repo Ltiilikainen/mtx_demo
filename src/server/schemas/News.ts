@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Uploads from "./Uploads.js";
+import Uploads from "./Uploads";
 
 const NewsSchema = new mongoose.Schema(
   {
