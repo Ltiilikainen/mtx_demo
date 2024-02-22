@@ -23,13 +23,17 @@ export default function AdminNewsList() {
     );
 
   return (
-    <ColumnWrapper gap="2">
+    <ColumnWrapper
+      gap="2"
+      className="w-full"
+    >
       {newsFeedQuery.data && newsFeedQuery.data.length > 0 ? (
         newsFeedQuery.data.map((item: News) => {
           return (
-            <div key={item._id}>
-              <AdminNewsThumb item={item} />
-            </div>
+            <AdminNewsThumb
+              key={item._id}
+              item={item}
+            />
           );
         })
       ) : (
