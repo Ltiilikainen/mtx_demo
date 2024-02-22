@@ -32,8 +32,8 @@ async function updateReferrer(id: string, info: { [key: string]: string }) {
 }
 
 async function updateMany(
-  condition: { [key: string]: string | Schema.Types.ObjectId },
-  info: { [key: string]: string | Schema.Types.ObjectId }
+  condition: { [key: string]: Schema.Types.ObjectId | string },
+  info: { [key: string]: string | Schema.Types.ObjectId | null }
 ) {
   const test = await Referrers.find(condition);
 

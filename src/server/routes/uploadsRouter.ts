@@ -99,7 +99,7 @@ router.delete("/:id", async (req, res) => {
 
       if (cascade === "true") {
         await referrerServices.updateMany(
-          { image: upload._id },
+          { image: upload._id.toString() },
           { image: null }
         );
       }
