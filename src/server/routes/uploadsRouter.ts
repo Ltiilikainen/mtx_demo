@@ -93,33 +93,36 @@ router.delete("/:id", async (req, res) => {
     const upload = await uploadsServices.deleteUpload(id);
 
     if (!upload) throw new Error("Unable to delete upload");
+
     try {
       //if /:id?cascade=true, go through referrers and set any images with the deleted upload's ID to empty string
-      if (cascade === "true") {
-        const refs = await referrerServices.readReferrers({
-          image: upload._id
-        });
 
-        (refs as Referrer[]).forEach(
-          async (ref) =>
-            await referrerServices.updateReferrer(ref._id, { image: "" })
+      if (cascade === "true") {
+        await referrerServices.updateMany(
+          { image: upload._id },
+          { image: null }
         );
       }
-      await mongoDisconnect();
+
       fs.unlink(`.${upload.path}`, () => {
         res.status(200).send(upload);
       });
     } catch (e) {
       handleError(e, async () => {
-        let type: "image" | "audio" | "video" = "image";
-        if (upload.type === "image") type = "image";
-        if (upload.type === "video") type = "video";
-        if (upload.type === "audio") type = "audio";
-        await uploadsServices.writeUpload({ path: upload.path, type: type });
-
+        if ((e as Error).message !== "Referrer could not be found") {
+          await mongoConnect();
+          let type: "image" | "audio" | "video" = "image";
+          if (upload.type === "image") type = "image";
+          if (upload.type === "video") type = "video";
+          if (upload.type === "audio") type = "audio";
+          await uploadsServices.writeUpload({ path: upload.path, type: type });
+          await mongoDisconnect();
+          res.status(200).send("OK");
+        }
         res.status(500).send("Internal server error");
       });
     }
+    await mongoDisconnect();
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }
