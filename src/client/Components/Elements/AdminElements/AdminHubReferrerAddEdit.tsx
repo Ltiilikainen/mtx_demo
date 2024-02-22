@@ -9,7 +9,6 @@ export default function AdminHubReferrerAddEdit() {
   const id = useParams().id;
 
   if (id) {
-    console.log(id);
     const refQuery = useQuery({
       queryKey: ["reference", id],
       queryFn: () => {
@@ -32,7 +31,6 @@ export default function AdminHubReferrerAddEdit() {
       );
 
     if (refQuery.isSuccess && refQuery.data) {
-      console.log(refQuery.data);
       return (
         <div>
           <ReferrerForm

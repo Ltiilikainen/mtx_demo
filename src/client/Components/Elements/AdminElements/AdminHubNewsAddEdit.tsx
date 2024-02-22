@@ -7,7 +7,6 @@ import ColumnWrapper from "../Wrappers/ColumnWrapper.js";
 
 export default function AdminHubNewsAddEdit() {
   const id = useParams().id;
-  console.log(id);
 
   if (id) {
     const getNewsQuery = useQuery({
