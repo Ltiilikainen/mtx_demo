@@ -1,4 +1,4 @@
-import Referrers from "../schemas/Referrers.js";
+import Referrers from "../schemas/Referrers";
 
 function readReferrers(query?: { [key: string]: unknown }) {
   if (query?.sample)

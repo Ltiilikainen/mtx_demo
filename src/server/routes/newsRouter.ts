@@ -1,7 +1,7 @@
 import express from "express";
-import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
-import newsServices from "../dbServices/newsServices.js";
-import { handleError } from "../main.js";
+import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect";
+import newsServices from "../dbServices/newsServices";
+import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
@@ -18,6 +18,10 @@ router.get("/", async (_, res) => {
 
 router.post("/", async (req, res) => {
   const newsItem: NewsInput = req.body.newsItem;
+  if (!newsItem || !newsItem.title || !newsItem.body) {
+    res.status(401).send("Invalid or missing parameters");
+    return;
+  }
   try {
     await mongoConnect();
     const newNewsItem = await newsServices.addNewsItem(newsItem);

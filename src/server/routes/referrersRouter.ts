@@ -1,8 +1,7 @@
 import express from "express";
-import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
-import { MongoError } from "mongodb";
-import referrerServices from "../dbServices/referrerServices.js";
-import { handleError } from "../main.js";
+import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect";
+import referrerServices from "../dbServices/referrerServices";
+import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
@@ -19,6 +18,15 @@ router.get("/", async (_, res) => {
 
 router.post("/", async (req, res) => {
   const referrer: ReferrerInput = req.body.referrer;
+  if (
+    !referrer ||
+    !referrer.refName ||
+    !referrer.affiliation ||
+    !referrer.content
+  ) {
+    res.status(401).send("Invalid or missing parameters");
+    return;
+  }
   try {
     await mongoConnect();
     const newReferrer = await referrerServices.addReferrer(referrer);
@@ -34,8 +42,14 @@ router.get("/:id", async (req, res) => {
     const id = req.params.id;
     await mongoConnect();
     const referrers = await referrerServices.readReferrers({ _id: id });
+    if ((referrers as Referrer[]).length < 1) {
+      res.status(404).send("Could not find any referrers.");
+      await mongoDisconnect();
+      return;
+    } else {
+      res.status(200).send((referrers as Referrer[])[0]);
+    }
     await mongoDisconnect();
-    res.status(200).send((referrers as Referrer[])[0]);
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import errorLogger from "../logger.js";
+import errorLogger from "../utils/logger";
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ export async function mongoDisconnect() {
   try {
     await mongoose.disconnect();
   } catch (e) {
-    console.log("warn", (e as Error).message);
+    errorLogger.log("warn", (e as Error).message);
     return;
   }
 }

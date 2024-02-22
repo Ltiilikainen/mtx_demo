@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import Mailjet from "node-mailjet";
-import errorLogger from "./logger.js";
+import errorLogger from "./logger";
 
 dotenv.config();
 

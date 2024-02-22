@@ -1,5 +1,5 @@
-import mongoose, { Collection, Schema } from "mongoose";
-import Uploads from "./Uploads.js";
+import mongoose, { Schema } from "mongoose";
+import Uploads from "./Uploads";
 
 const ReferrerSchema = new mongoose.Schema(
   {

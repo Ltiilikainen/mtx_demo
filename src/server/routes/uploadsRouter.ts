@@ -1,10 +1,10 @@
 import express from "express";
-import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect.js";
-import uploadsServices from "../dbServices/uploadsServices.js";
-import upload from "../upload.js";
+import { mongoConnect, mongoDisconnect } from "../dbServices/mongoConnect";
+import uploadsServices from "../dbServices/uploadsServices";
+import upload from "../utils/upload";
 import fs from "fs";
-import referrerServices from "../dbServices/referrerServices.js";
-import { handleError } from "../main.js";
+import referrerServices from "../dbServices/referrerServices";
+import handleError from "../utils/errorHandler";
 
 const router = express.Router();
 
@@ -56,7 +56,14 @@ router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const uploads = await uploadsServices.readUploads({ _id: id });
-    res.status(200).send(uploads[0]);
+    if (uploads.length < 1) {
+      res.status(404).send("Could not find any referrers.");
+      await mongoDisconnect();
+      return;
+    } else {
+      res.status(200).send(uploads[0]);
+    }
+    await mongoDisconnect();
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }
@@ -70,6 +77,7 @@ router.put("/:id", async (req, res) => {
     await mongoConnect();
     const upload = await uploadsServices.updateUpload(id, updatedInfo);
     await mongoDisconnect();
+    res.status(200).send(upload);
   } catch (e) {
     handleError(e, () => res.status(500).send("Internal server error"));
   }
