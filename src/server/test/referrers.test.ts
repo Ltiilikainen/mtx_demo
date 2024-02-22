@@ -65,13 +65,13 @@ describe("referrers", () => {
     });
   });
   describe("get individual referrers post route", () => {
-    describe("referrers id not valid format", () => {
+    describe("referrer id not valid format", () => {
       it("should return 500", async () => {
         const id = "a2erdfsd";
         await supertest(app).get(`/api/referrers/${id}`).expect(500);
       });
     });
-    describe("referrers does not exist", () => {
+    describe("referrer does not exist", () => {
       it("should return 404", async () => {
         const id = "65571a3895ada6c0a24b1a66";
         await supertest(app).get(`/api/referrers/${id}`).expect(404);
