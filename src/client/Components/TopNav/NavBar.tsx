@@ -7,7 +7,7 @@ export default function NavBar() {
     <div className="w-full h-[3.5rem] bg-slate-700 border-b[0.5px] border-b-slate-800 flex flex-row gap-4 text-white items-center px-4">
       <div
         className="ml-4 cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/adminhub")}
       >
         {"<Logo/>"}
       </div>
