@@ -5,11 +5,7 @@ const errorLogger = createLogger({
     new transports.File({
       filename: "errors.log",
       level: "warn",
-      format: format.combine(
-        format.colorize({ all: true }),
-        format.timestamp(),
-        format.json({ space: 4 })
-      )
+      format: format.combine(format.timestamp(), format.json({ space: 4 }))
     })
   ]
 });
