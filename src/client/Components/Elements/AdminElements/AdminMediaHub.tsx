@@ -19,7 +19,7 @@ export default function AdminMediaHub() {
   }
 
   return (
-    <div className="flex flex-row flex-wrap gap-4 px-4 w-max mx-auto">
+    <div className="flex flex-row flex-wrap gap-4 px-4 mx-auto">
       {(mediaQuery.data as Upload[]).map((item) => (
         <AdminMediaThumb
           key={item._id}

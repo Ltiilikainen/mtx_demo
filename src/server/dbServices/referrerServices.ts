@@ -1,3 +1,4 @@
+import { Schema } from "mongoose";
 import Referrers from "../schemas/Referrers";
 
 function readReferrers(query?: { [key: string]: unknown }) {
@@ -30,6 +31,18 @@ async function updateReferrer(id: string, info: { [key: string]: string }) {
   return Referrers.findOneAndUpdate({ _id: id }, info);
 }
 
+async function updateMany(
+  condition: { [key: string]: string | Schema.Types.ObjectId },
+  info: { [key: string]: string | Schema.Types.ObjectId }
+) {
+  const test = await Referrers.find(condition);
+
+  if (test.length < 1) {
+    throw new Error("Referrer could not be found");
+  }
+  return Referrers.updateMany(condition, info);
+}
+
 async function deleteReferrer(id: string) {
   const test = await Referrers.find({ _id: id });
   if (test.length < 1) {
@@ -42,5 +55,6 @@ export default {
   readReferrers,
   addReferrer,
   updateReferrer,
+  updateMany,
   deleteReferrer
 };
