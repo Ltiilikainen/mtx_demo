@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import errorLogger from "./logger.js";
 
 //create multer instance
 const upload = multer({
@@ -39,8 +40,10 @@ const upload = multer({
 const img = upload.single("img");
 
 function checkFiletype(filetype: string, checklist: string[]) {
-  if (checklist.indexOf(filetype) < 0) return false;
-  else return true;
+  if (checklist.indexOf(filetype) < 0) {
+    errorLogger.log("warn", `Multer upload: Filetype ${filetype} is invalid.`);
+    return false;
+  } else return true;
 }
 
 export default { img };

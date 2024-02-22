@@ -6,6 +6,7 @@ import referrersRouter from "./routes/referrersRouter.js";
 import uploadsRouter from "./routes/uploadsRouter.js";
 import { sendContactForm } from "./emailService.js";
 import { MongoError } from "mongodb";
+import errorLogger from "./logger.js";
 
 const app = express();
 app.use(express.json());
@@ -30,9 +31,9 @@ ViteExpress.listen(app, 3001, () =>
 
 export function handleError(e: unknown, callback: () => void) {
   if (e instanceof MongoError) {
-    console.log("Mongo error: " + e.message);
+    errorLogger.log("error", "Mongo error: " + e.message);
   } else {
-    console.log((e as Error).message);
+    errorLogger.log("error", (e as Error).message);
   }
   callback();
 }

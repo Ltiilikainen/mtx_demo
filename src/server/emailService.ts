@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import Mailjet from "node-mailjet";
+import errorLogger from "./logger.js";
 
 dotenv.config();
 
@@ -53,6 +54,8 @@ export async function sendContactForm(formData: ContactFormData) {
   });
 
   request
-    .then((result) => console.log(result.body))
-    .catch((err) => console.log(err));
+    .then(() => {
+      return;
+    })
+    .catch((err: Error) => errorLogger.log("error", err.message));
 }
